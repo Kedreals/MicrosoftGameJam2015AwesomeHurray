@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AtomicSheeps.Core;
 using SFML.Graphics;
 
@@ -27,35 +25,35 @@ namespace AtomicSheeps.Classes
         /// </summary>
         private void HandleGameState()
         {
-            //if (currentGameState == EGameStates.None)
-            //{
-            //    win.Close();
-            //    return;
-            //}
+            if (currentGameState == EGameStates.None)
+            {
+                win.Close();
+                return;
+            }
 
-            //bool StateFound = false;
+            bool StateFound = false;
 
-            //string className = currentGameState.ToString().Split('.').Last();
+            string className = currentGameState.ToString().Split('.').Last();
 
-            //IEnumerable<Type> classes = typeof(Game).Assembly.GetTypes().Where(type => type.GetInterfaces().Contains(typeof(GameState)));
+            IEnumerable<Type> classes = typeof(Game).Assembly.GetTypes().Where(type => type.GetInterfaces().Contains(typeof(GameState)));
 
-            //foreach (Type t in classes)
-            //{
-            //    if (t.Name.Equals(className))
-            //    {
-            //        gameState = (GameState)Activator.CreateInstance(t);
-            //        StateFound = true;
-            //    }
-            //}
+            foreach (Type t in classes)
+            {
+                if (t.Name.Equals(className))
+                {
+                    gameState = (GameState)Activator.CreateInstance(t);
+                    StateFound = true;
+                }
+            }
 
-            //if (!StateFound)
-            //    throw new NotFiniteNumberException();
+            if (!StateFound)
+                throw new NotFiniteNumberException();
 
-            //gameState.LoadContent();
+            gameState.LoadContent();
 
-            //gameState.Initialize();
+            gameState.Initialize();
 
-            //prevGameState = currentGameState;
+            prevGameState = currentGameState;
         }
 
         public override void Update(GameTime gameTime)
@@ -68,12 +66,12 @@ namespace AtomicSheeps.Classes
                 HandleGameState();
             }
 
-            //currentGameState = gameState.Update(gameTime);
+            currentGameState = gameState.Update(gameTime);
         }
 
         public override void Draw(RenderWindow win)
         {
-            //gameState.Draw(win);
+            gameState.Draw(win);
         }
     }
 }

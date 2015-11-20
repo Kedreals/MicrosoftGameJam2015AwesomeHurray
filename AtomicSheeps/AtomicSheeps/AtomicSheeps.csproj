@@ -54,7 +54,12 @@
   <ItemGroup>
     <Compile Include="Classes\AbstractGame.cs" />
     <Compile Include="Classes\Game.cs" />
-    <Compile Include="Classes\GameState.cs" />
+    <Compile Include="Classes\GameStates\GameOver.cs" />
+    <Compile Include="Classes\GameStates\GameState.cs" />
+    <Compile Include="Classes\GameStates\InGame.cs" />
+    <Compile Include="Classes\GameStates\MainMenu.cs" />
+    <Compile Include="Classes\GameStates\TitleScreen.cs" />
+    <Compile Include="Core\Controls.cs" />
     <Compile Include="Core\GameTime.cs" />
     <Compile Include="Core\KeyboardControler.cs" />
     <Compile Include="Core\MouseControler.cs" />
@@ -83,6 +88,12 @@
     <Content Include="openal32.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\Fonts\" />
+    <Folder Include="Assets\Sounds\" />
+    <Folder Include="Assets\Textures\" />
+    <Folder Include="Shader\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

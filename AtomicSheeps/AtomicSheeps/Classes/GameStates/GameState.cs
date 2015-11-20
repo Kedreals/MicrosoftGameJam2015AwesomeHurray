@@ -11,9 +11,11 @@ namespace AtomicSheeps.Classes
     public enum EGameStates
     {
         None = -1,
+
         TitelScreen,
         MainMenu,
         InGame,
+        GameOver,
 
         Count
     }

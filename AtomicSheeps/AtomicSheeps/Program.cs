@@ -13,6 +13,9 @@ namespace AtomicSheeps
         {
             Game g = new Game();
 
+            for (int i = -1; i < (int)SFML.Window.Keyboard.Key.KeyCount; ++i)
+                Console.WriteLine((SFML.Window.Keyboard.Key)i);
+
             g.Run();
         }
     }
