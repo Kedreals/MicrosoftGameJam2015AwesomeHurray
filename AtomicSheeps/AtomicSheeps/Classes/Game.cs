@@ -11,10 +11,12 @@ namespace AtomicSheeps.Classes
         static uint WindowSizeX = 1280;
         static uint WindowSizeY = 720;
 
+        public static Vec2f WindowSize { get { return new Vec2f(win.Size.X, win.Size.Y); } }
+
         EGameStates currentGameState, prevGameState;
         GameState gameState;
 
-        public Game() : base(WindowSizeX, WindowSizeY, "Titel", SFML.Window.Styles.Default)
+        public Game() : base(WindowSizeX, WindowSizeY, "AtomicSheeps", SFML.Window.Styles.Default)
         {
             prevGameState = EGameStates.None;
             currentGameState = EGameStates.TitelScreen;

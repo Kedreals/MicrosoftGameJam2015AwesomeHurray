@@ -26,7 +26,7 @@ namespace AtomicSheeps.Core
             Y = y;
         }
 
-        
+
         public static Vec2f Zero { get { return new Vec2f(0, 0); } }
 
         //Casts************************************************************************
@@ -76,6 +76,11 @@ namespace AtomicSheeps.Core
         public static Vec2f operator /(Vec2f v, float f)
         {
             return new Vec2f(v.X / f, v.Y / f);
+        }
+
+        public static Vec2f operator /(Vec2f v1, Vec2f v2)
+        {
+            return new Vec2f(v1.X / v2.X, v1.Y / v2.Y);
         }
 
         //other************************************************************************
