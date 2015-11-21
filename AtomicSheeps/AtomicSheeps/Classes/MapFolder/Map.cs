@@ -25,7 +25,11 @@ namespace AtomicSheeps.Classes.MapFolder
                 for(int j = 0; j<Tiles.GetLength(1); ++j)
                 {
                     if (bMap.GetPixel(i, j).Equals(white))
+                    {
+
+
                         Tiles[i, j] = new Tile(false, new Vec2f(i, j) * TileSize);
+                    }
                     else
                     {
                         if (bMap.GetPixel(i, j).Equals(black))
@@ -85,7 +89,7 @@ namespace AtomicSheeps.Classes.MapFolder
                                 Tiles[i, j] = new Tile(true, new Vec2f(i, j) * TileSize, Path);
                         }
 
-                        if(bMap.GetPixel(i, j).Equals(red))
+                        if (bMap.GetPixel(i, j).Equals(red))
                         {
                             Vec2f pos = new Vec2f(i, j) * TileSize;
 

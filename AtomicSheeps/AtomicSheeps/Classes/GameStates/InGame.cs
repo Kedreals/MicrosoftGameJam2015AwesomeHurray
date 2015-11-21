@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 using AtomicSheeps.Core;
 using SFML.Graphics;
 using AtomicSheeps.Classes.MapFolder;
+using SFML.Audio;
 
 namespace AtomicSheeps.Classes.GameStates
 {
     class InGame : IGameState
     {
         Map Level1;
-
         CircleShape c;
+        Sound BackgroundMusic;
 
         public void Draw(RenderWindow window)
         {
@@ -35,6 +36,10 @@ namespace AtomicSheeps.Classes.GameStates
         public void LoadContent()
         {
             Level1 = new Map(new System.Drawing.Bitmap("Assets/Bitmap-Levels/Level1.bmp"));
+            BackgroundMusic = new Sound(new SoundBuffer("Assets/Sounds/Farm-SoundBible.com-1720780826.mp3"));
+            BackgroundMusic.Loop = true;
+            BackgroundMusic.Volume = 100;
+            BackgroundMusic.Play();
         }
 
         public EGameStates Update(GameTime time)
