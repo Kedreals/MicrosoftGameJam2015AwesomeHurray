@@ -129,6 +129,9 @@ namespace AtomicSheeps.Classes.GameStates
             Selected = ESelectedSprite.None;
 
             Background = new Sprite(new Texture("Assets/Textures/MainMenu.png"));
+            Background.Scale = Game.WindowSize / new Vec2f(Background.Texture.Size.X, Background.Texture.Size.Y);
+
+
             Start = new Sprite(new Texture("Assets/Textures/Start.png"));
             Start.Position = MenuOffset;
             Options = new Sprite(new Texture("Assets/Textures/Options.png"));

@@ -35,6 +35,11 @@ namespace AtomicSheeps.Core
             return new Vec2i(v.X, v.Y);
         }
 
+        public static implicit operator Vec2f(Vec2i v)
+        {
+            return new Vec2f(v.X, v.Y);
+        }
+
         //operators********************************************************************
 
         public static bool operator ==(Vec2i a, Vec2i b)

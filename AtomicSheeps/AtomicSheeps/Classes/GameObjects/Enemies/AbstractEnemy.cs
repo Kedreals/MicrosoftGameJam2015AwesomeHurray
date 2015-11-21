@@ -15,13 +15,15 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
         public float Life { get; protected set; }
         protected float MovementSpeed;
 
-        Vec2f[] Verticies;
+        List<Vec2f> Verticies;
 
         public AbstractEnemy(MapFolder.Map m)
         {
             LoadStats();
 
             Verticies = m.Verticies;
+
+            sprite.Position = Verticies[0];
 
             EnemyHandler.Add(this);
         }
