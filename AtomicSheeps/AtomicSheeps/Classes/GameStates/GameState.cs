@@ -20,7 +20,7 @@ namespace AtomicSheeps.Classes
         Count
     }
 
-    interface GameState
+    interface IGameState
     {
         void Initialize();
 

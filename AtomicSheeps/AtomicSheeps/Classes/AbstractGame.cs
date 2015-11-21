@@ -1,5 +1,6 @@
 ﻿using SFML.Graphics;
 using AtomicSheeps.Core;
+using System;
 
 namespace AtomicSheeps.Classes
 {
@@ -32,10 +33,17 @@ namespace AtomicSheeps.Classes
         public void Run()
         {
             gameTime.Start();
+            byte R = 0;
+            byte G = 0;
+            byte B = 0;
 
             while (win.IsOpen())
             {
-                win.Clear(new Color(101, 156, 239)); //CornFlowerBlue
+                R = (byte)((Math.Sin(gameTime.TotalTime.TotalSeconds + 0 * Math.PI) * 0.5 + 0.5) * 255);
+                G = (byte)((Math.Sin(gameTime.TotalTime.TotalSeconds + 0.5 * Math.PI) * 0.5 + 0.5) * 255);
+                B = (byte)((Math.Sin(gameTime.TotalTime.TotalSeconds + 1 * Math.PI) * 0.5 + 0.5) * 255);
+
+                win.Clear(new Color(R, G, B));
                 win.DispatchEvents();
                 gameTime.Update();
                 Update(gameTime);

@@ -8,33 +8,45 @@ using SFML.Graphics;
 
 namespace AtomicSheeps.Classes.GameStates
 {
-    class TitelScreen : GameState
+    class TitelScreen : IGameState, IControlable
     {
+        EGameStates ReturnState = EGameStates.TitelScreen;
+
         Sprite Background;
         CircleShape c;
         RenderTexture test;
         RenderStates shaderState;
         Shader testShader;
 
-        public void Draw(RenderWindow window)
+        public void OnKeyPress(object sender, KeyEventArgs e)
         {
-            if (Background != null)
-            {
-                window.Draw(Background, shaderState);
-            }
+            KeyboardControler.KeyPressed -= OnKeyPress;
+            ReturnState = EGameStates.MainMenu;
+        }
+
+        public void OnKeyRelease(object sender, KeyEventArgs e)
+        {
+            KeyboardControler.KeyReleased -= OnKeyRelease;
+        }
+
+        public void OnButtonPress(object sender, MouseButtonEventArgs e)
+        {
+            MouseControler.ButtonPressed -= OnButtonPress;
+            ReturnState = EGameStates.MainMenu;
+        }
+
+        public void OnButtonRelease(object sender, MouseButtonEventArgs e)
+        {
+            MouseControler.ButtonReleased -= OnButtonRelease;
         }
 
         public void Initialize()
         {
-            
-        }
+            KeyboardControler.KeyPressed += OnKeyPress;
+            KeyboardControler.KeyReleased += OnKeyRelease;
 
-        public void LoadContent()
-        {
-            Texture tex = new Texture("Assets/Textures/TitelScreen.png");
-            Background = new Sprite(tex);
-
-            Background.Scale = Game.WindowSize / new Vec2f(Background.Texture.Size.X, Background.Texture.Size.Y);
+            MouseControler.ButtonPressed += OnButtonPress;
+            MouseControler.ButtonReleased += OnButtonRelease;
 
             test = new RenderTexture((uint)Game.WindowSize.X, (uint)Game.WindowSize.Y);
             testShader = new Shader(null, "Shader/Overlap.frag");
@@ -45,7 +57,22 @@ namespace AtomicSheeps.Classes.GameStates
             col.A = 100;
 
             c.FillColor = col;
+        }
 
+        public void LoadContent()
+        {
+            Texture tex = new Texture("Assets/Textures/TitelScreen.png");
+            Background = new Sprite(tex);
+
+            Background.Scale = Game.WindowSize / new Vec2f(Background.Texture.Size.X, Background.Texture.Size.Y);
+        }
+
+        public void Draw(RenderWindow window)
+        {
+            if (Background != null)
+            {
+                window.Draw(Background, shaderState);
+            }
         }
 
         public EGameStates Update(GameTime time)
@@ -62,7 +89,7 @@ namespace AtomicSheeps.Classes.GameStates
 
             testShader.SetParameter("overlay", test.Texture);
 
-            return EGameStates.TitelScreen;
+            return ReturnState;
         }
     }
 }

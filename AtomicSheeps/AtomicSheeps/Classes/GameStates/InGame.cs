@@ -8,7 +8,7 @@ using SFML.Graphics;
 
 namespace AtomicSheeps.Classes.GameStates
 {
-    class InGame : GameState
+    class InGame : IGameState
     {
         public void Draw(RenderWindow window)
         {

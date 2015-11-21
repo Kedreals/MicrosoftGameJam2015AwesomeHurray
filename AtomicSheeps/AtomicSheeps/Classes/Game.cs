@@ -14,7 +14,7 @@ namespace AtomicSheeps.Classes
         public static Vec2f WindowSize { get { return new Vec2f(win.Size.X, win.Size.Y); } }
 
         EGameStates currentGameState, prevGameState;
-        GameState gameState;
+        IGameState gameState;
 
         public Game() : base(WindowSizeX, WindowSizeY, "AtomicSheeps", SFML.Window.Styles.Default)
         {
@@ -37,13 +37,13 @@ namespace AtomicSheeps.Classes
 
             string className = currentGameState.ToString().Split('.').Last();
 
-            IEnumerable<Type> classes = typeof(Game).Assembly.GetTypes().Where(type => type.GetInterfaces().Contains(typeof(GameState)));
+            IEnumerable<Type> classes = typeof(Game).Assembly.GetTypes().Where(type => type.GetInterfaces().Contains(typeof(IGameState)));
 
             foreach (Type t in classes)
             {
                 if (t.Name.Equals(className))
                 {
-                    gameState = (GameState)Activator.CreateInstance(t);
+                    gameState = (IGameState)Activator.CreateInstance(t);
                     StateFound = true;
                 }
             }
