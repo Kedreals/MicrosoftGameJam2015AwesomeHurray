@@ -31,9 +31,16 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
 
         public static void Update(GameTime gTime)
         {
-            foreach (AbstractEnemy e in Enemies)
-                if (e != null)
-                    e.Update(gTime);
+            for(int i = 0; i<Enemies.Count; ++i)
+            {
+                if (!Enemies[i].IsAlive)
+                {
+                    Enemies.RemoveAt(i);
+                    --i;
+                }
+                else
+                    Enemies[i].Update(gTime);
+            }
         }
     }
 }
