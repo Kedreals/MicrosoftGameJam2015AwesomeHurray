@@ -19,6 +19,7 @@ namespace AtomicSheeps.Classes.GameObjects.Tower
         public TimeSpan Cooldown { get; protected set; }
         public bool Selected { get; protected set; }
         public bool IsAlive { get; private set; }
+        TimeSpan timeSpan;
 
         CircleShape c;
 
@@ -28,6 +29,7 @@ namespace AtomicSheeps.Classes.GameObjects.Tower
             MouseControler.ButtonPressed += OnButtonPress;
             MouseControler.ButtonReleased += OnButtonRelease;
             TowerHandler.Towers.Add(this);
+            timeSpan = new TimeSpan();
 
             IsAlive = true;
 
@@ -43,14 +45,12 @@ namespace AtomicSheeps.Classes.GameObjects.Tower
 
         protected void Shooting(GameTime gTime)
         {
-            float distance = 1000;
-            float currentDistance;
-            TimeSpan timeSpan = new TimeSpan();
+            float currentDistance
 
             foreach (AbstractEnemy enemy in EnemyHandler.Enemies)
             {
                 currentDistance = this.Position.Distance(enemy.Position);
-                if (currentDistance <= Range && (timeSpan.Add(Cooldown)).CompareTo(gTime.TotalTime) != (-1) && currentDistance < distance)
+                if (currentDistance <= Range && !((timeSpan.Add(Cooldown)).CompareTo(gTime.TotalTime) < 0))
                 {
                     enemy.DoDamage(Damage);
                     timeSpan = gTime.TotalTime;
