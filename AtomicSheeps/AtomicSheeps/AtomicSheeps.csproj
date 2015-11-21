@@ -59,6 +59,7 @@
     <Compile Include="Classes\GameObjects\Enemies\EnemyHandler.cs" />
     <Compile Include="Classes\GameObjects\Enemies\TestEnemy.cs" />
     <Compile Include="Classes\GameObjects\Tower\AbstractTower.cs" />
+    <Compile Include="Classes\GameObjects\Tower\TestTower.cs" />
     <Compile Include="Classes\GameObjects\Tower\TowerHandler.cs" />
     <Compile Include="Classes\GameStates\GameOver.cs" />
     <Compile Include="Classes\GameStates\GameState.cs" />
@@ -147,6 +148,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Textures\SchafKlein.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Textures\SchafVerstrahlt.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Textures\Start.png">
