@@ -10,8 +10,11 @@ namespace AtomicSheeps.Classes.GameStates
 {
     class GameOver : IGameState
     {
+        Sprite Background;
+
         public void Draw(RenderWindow window)
         {
+            window.Draw(Background);
         }
 
         public void Initialize()
@@ -20,6 +23,7 @@ namespace AtomicSheeps.Classes.GameStates
 
         public void LoadContent()
         {
+            Background = new Sprite(new Texture("Assets/Textures/Game Over.png"));
         }
 
         public EGameStates Update(GameTime time)
