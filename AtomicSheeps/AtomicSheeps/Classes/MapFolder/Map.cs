@@ -28,10 +28,19 @@ namespace AtomicSheeps.Classes.MapFolder
                     {
                         if (bMap.GetPixel(i, j).Equals(black))
                         {
-                            
+                            Tiles[i, j] = null;
                         }
                     }
                 }
+        }
+
+        public void Draw(SFML.Graphics.RenderWindow win)
+        {
+            foreach(Tile t in Tiles)
+            {
+                if (t != null)
+                    t.Draw(win);
+            }
         }
     }
 }
