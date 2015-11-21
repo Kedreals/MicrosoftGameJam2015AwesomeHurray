@@ -31,9 +31,16 @@ namespace AtomicSheeps.Classes.GameObjects.Tower
 
         public static void Update(GameTime gTime)
         {
-            foreach (AbstractTower e in Towers)
-                if (e != null)
-                    e.Update(gTime);
+            for (int i = 0; i < Towers.Count; ++i)
+            {
+                if (!Towers[i].IsAlive)
+                {
+                    Towers.RemoveAt(i);
+                    --i;
+                }
+                else
+                    Towers[i].Update(gTime);
+            }
         }
     }
 }
