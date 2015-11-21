@@ -83,6 +83,16 @@ namespace AtomicSheeps.Core
             return new Vec2f(v1.X / v2.X, v1.Y / v2.Y);
         }
 
+        public static Vec2f operator -(Vec2f v, float f)
+        {
+            return v - new Vec2f(f, f);
+        }
+
+        public static Vec2f operator -(float f, Vec2f v)
+        {
+            return v - new Vec2f(f, f);
+        }
+
         //other************************************************************************
 
         /// <summary>
