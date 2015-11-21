@@ -10,7 +10,7 @@ namespace AtomicSheeps.Classes.GameStates
 {
     class InGame : IGameState
     {
-        Map Level;
+        public static Map Level { get; private set; }
         Sound BackgroundMusic;
 
         public void Draw(RenderWindow window)
