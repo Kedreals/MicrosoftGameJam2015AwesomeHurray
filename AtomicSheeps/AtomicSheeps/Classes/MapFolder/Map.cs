@@ -149,6 +149,15 @@ namespace AtomicSheeps.Classes.MapFolder
             Verticies.Add((Vec2f)EndPosition * TileSize);
         }
 
+        public Vec2f GetValidPosition(Vec2f pos)
+        {
+            Vec2i tilePos = (pos / TileSize);
+            if (Tiles[tilePos.X, tilePos.Y].IsPath)
+                throw new PathException();
+
+            return (Vec2f)tilePos * TileSize;
+        }
+
         public void Draw(SFML.Graphics.RenderWindow win)
         {
             foreach(Tile t in Tiles)
