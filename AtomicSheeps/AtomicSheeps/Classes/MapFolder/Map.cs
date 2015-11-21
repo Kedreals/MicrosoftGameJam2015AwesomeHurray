@@ -108,11 +108,13 @@ namespace AtomicSheeps.Classes.MapFolder
                         if(bMap.GetPixel(i, j).Equals(yellow))
                         {
                             Vec2f pos = new Vec2f(i, j) * TileSize;
-                            //Tiles[i, j] = new Tile(true, pos, "Assets/Textures/");
+                            Tiles[i, j] = new Tile(true, pos, "Assets/Textures/house.png");
                             EndPosition = new Vec2i(i, j);
                         }
                     }
                 }
+
+            Verticies = new List<Vec2f>();
 
             SetMovementVeticies();
         }
@@ -126,12 +128,25 @@ namespace AtomicSheeps.Classes.MapFolder
 
             while(pos != EndPosition)
             {
-                for (; Tiles[(pos + d).X, (pos + d).Y].IsPath ;pos += d);
+                for (; pos != EndPosition && Tiles[(pos + d).X, (pos + d).Y].IsPath ;pos += d);
+
+                if (pos == EndPosition)
+                    break;
 
                 Verticies.Add((Vec2f)pos * TileSize);
-                Vec2i t = pos + d;
-                
+                Vec2i t = -d;
+
+                if (Tiles[pos.X + 0, pos.Y + 1].IsPath && -d != new Vec2i(0, 1))
+                    d = new Vec2i(0, 1);
+                else if (Tiles[pos.X + 1, pos.Y + 0].IsPath && -d != new Vec2i(1, 0))
+                    d = new Vec2i(1, 0);
+                else if (Tiles[pos.X - 1, pos.Y - 0].IsPath && -d != new Vec2i(-1, 0))
+                    d = new Vec2i(-1, 0);
+                else if (Tiles[pos.X - 0, pos.Y - 1].IsPath && -d != new Vec2i(0, -1))
+                    d = new Vec2i(0, -1);
             }
+
+            Verticies.Add((Vec2f)EndPosition * TileSize);
         }
 
         public void Draw(SFML.Graphics.RenderWindow win)

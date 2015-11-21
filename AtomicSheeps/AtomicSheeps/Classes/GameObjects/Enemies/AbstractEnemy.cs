@@ -12,8 +12,11 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
     abstract class AbstractEnemy
     {
         protected Sprite sprite;
+        public bool IsAlive { get; protected set; }
         public float Life { get; protected set; }
         protected float MovementSpeed;
+        int VertexIndex;
+        float Epsilon = 0.0625f;
 
         List<Vec2f> Verticies;
 
@@ -21,7 +24,9 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
         {
             LoadStats();
 
+            IsAlive = true;
             Verticies = m.Verticies;
+            VertexIndex = 1;
 
             sprite.Position = Verticies[0];
 
@@ -39,7 +44,12 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
 
         public void Update(GameTime gTime)
         {
+            if (Position.Distance(Verticies[VertexIndex]) < Epsilon)
+                VertexIndex++;
+            sprite.Position = Position + (Verticies[VertexIndex] - Position).GetNormalized() * MovementSpeed;
 
+            if (Life <= 0)
+                IsAlive = false;
         }
 
         public void Draw(RenderWindow win)
