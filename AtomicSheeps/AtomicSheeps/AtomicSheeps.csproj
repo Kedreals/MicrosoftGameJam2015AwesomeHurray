@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Classes\AbstractGame.cs" />
     <Compile Include="Classes\Game.cs" />
+    <Compile Include="Classes\GameObjects\Tower\Tower.cs" />
     <Compile Include="Classes\GameStates\GameOver.cs" />
     <Compile Include="Classes\GameStates\GameState.cs" />
     <Compile Include="Classes\GameStates\InGame.cs" />
@@ -140,9 +141,6 @@
     <Content Include="Assets\Textures\SchafKlein.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Textures\SchafVerstrahlt.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Assets\Textures\Start.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -173,7 +171,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Fonts\" />
-    <Folder Include="Classes\GameObjects\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
