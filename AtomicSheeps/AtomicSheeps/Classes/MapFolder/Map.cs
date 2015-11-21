@@ -13,8 +13,9 @@ namespace AtomicSheeps.Classes.MapFolder
     {
         Tile[,] Tiles;
         public static float TileSize { get { return 64; } }
-        Vec2f SpawnPosition;
-        public Vec2f[] Verticies { get; private set; }
+        Vec2i SpawnPosition;
+        Vec2i EndPosition;
+        public List<Vec2f> Verticies { get; private set; }
 
         static Color white = Color.FromArgb(255, 255, 255);
         static Color black = Color.FromArgb(0, 0, 0);
@@ -101,7 +102,14 @@ namespace AtomicSheeps.Classes.MapFolder
 
                             Tiles[i, j] = new Tile(true, pos, "Assets/Textures/house_humans.png");
 
-                            SpawnPosition = pos + new Vec2f(TileSize / 2, TileSize / 2);
+                            SpawnPosition = new Vec2i(i, j);
+                        }
+
+                        if(bMap.GetPixel(i, j).Equals(yellow))
+                        {
+                            Vec2f pos = new Vec2f(i, j) * TileSize;
+                            //Tiles[i, j] = new Tile(true, pos, "Assets/Textures/");
+                            EndPosition = new Vec2i(i, j);
                         }
                     }
                 }
@@ -111,6 +119,19 @@ namespace AtomicSheeps.Classes.MapFolder
 
         void SetMovementVeticies()
         {
+            Verticies.Add((Vec2f)SpawnPosition * TileSize);
+
+            Vec2i d = new Vec2i(1, 0);
+            Vec2i pos = SpawnPosition;
+
+            while(pos != EndPosition)
+            {
+                for (; Tiles[(pos + d).X, (pos + d).Y].IsPath ;pos += d);
+
+                Verticies.Add((Vec2f)pos * TileSize);
+                Vec2i t = pos + d;
+                
+            }
         }
 
         public void Draw(SFML.Graphics.RenderWindow win)
