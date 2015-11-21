@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AtomicSheeps.Core;
+﻿using AtomicSheeps.Core;
 using SFML.Graphics;
 using AtomicSheeps.Classes.MapFolder;
 using SFML.Audio;
