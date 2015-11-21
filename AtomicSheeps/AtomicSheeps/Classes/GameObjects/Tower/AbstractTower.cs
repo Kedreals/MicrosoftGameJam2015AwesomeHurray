@@ -45,14 +45,14 @@ namespace AtomicSheeps.Classes.GameObjects.Tower
 
         protected void Shooting(GameTime gTime)
         {
-            float currentDistance
+            float currentDistance;
 
             foreach (AbstractEnemy enemy in EnemyHandler.Enemies)
             {
                 currentDistance = this.Position.Distance(enemy.Position);
                 if (currentDistance <= Range && !((timeSpan.Add(Cooldown)).CompareTo(gTime.TotalTime) < 0))
                 {
-                    enemy.DoDamage(Damage);
+                    //enemy.DoDamage(Damage);
                     timeSpan = gTime.TotalTime;
                     break;
                 }

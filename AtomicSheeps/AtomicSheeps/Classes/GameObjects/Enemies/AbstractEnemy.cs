@@ -46,7 +46,7 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
         {
             if (Position.Distance(Verticies[VertexIndex]) < Epsilon)
                 VertexIndex++;
-            sprite.Position = Position + (Verticies[VertexIndex] - Position).GetNormalized() * MovementSpeed;
+            sprite.Position = Position + (Verticies[VertexIndex] - Position).GetNormalized() * MovementSpeed * gTime.EllapsedTime.Milliseconds;
 
             if (Life <= 0)
                 IsAlive = false;
