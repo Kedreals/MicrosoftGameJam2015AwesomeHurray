@@ -17,6 +17,7 @@ namespace AtomicSheeps.Classes.MapFolder
         static Color white = Color.FromArgb(255, 255, 255);
         static Color black = Color.FromArgb(0, 0, 0);
         static Color red = Color.FromArgb(255, 0, 0);
+        Random r = new Random();
 
         public Map(Bitmap bMap)
         {
@@ -26,9 +27,10 @@ namespace AtomicSheeps.Classes.MapFolder
                 {
                     if (bMap.GetPixel(i, j).Equals(white))
                     {
-
-
-                        Tiles[i, j] = new Tile(false, new Vec2f(i, j) * TileSize);
+                        if (r.Next(10) > 7)
+                            Tiles[i, j] = new Tile(false, new Vec2f(i, j) * TileSize, "Assets/Textures/tree.png");
+                        else
+                            Tiles[i, j] = new Tile(false, new Vec2f(i, j) * TileSize);
                     }
                     else
                     {

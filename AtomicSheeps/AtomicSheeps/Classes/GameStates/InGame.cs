@@ -46,8 +46,6 @@ namespace AtomicSheeps.Classes.GameStates
         {
             Vec2f pos = MouseControler.MousePosition;
 
-            c.Radius = (float)time.TotalTime.TotalSeconds;
-
             c.Position = pos;
             c.Position = (Vec2f)c.Position - new Vec2f(c.Radius, c.Radius);
 
