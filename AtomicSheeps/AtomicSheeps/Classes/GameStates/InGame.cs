@@ -36,7 +36,7 @@ namespace AtomicSheeps.Classes.GameStates
         public void LoadContent()
         {
             Level1 = new Map(new System.Drawing.Bitmap("Assets/Bitmap-Levels/Level1.bmp"));
-            BackgroundMusic = new Sound(new SoundBuffer("Assets/Sounds/Farm-SoundBible.com-1720780826.mp3"));
+            BackgroundMusic = new Sound(new SoundBuffer("Assets/Sounds/Farm-SoundBible.com-1720780826.wav"));
             BackgroundMusic.Loop = true;
             BackgroundMusic.Volume = 100;
             BackgroundMusic.Play();
