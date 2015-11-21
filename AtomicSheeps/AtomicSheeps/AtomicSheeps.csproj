@@ -57,7 +57,8 @@
     <Compile Include="Classes\Game.cs" />
     <Compile Include="Classes\GameObjects\Enemies\AbstractEnemy.cs" />
     <Compile Include="Classes\GameObjects\Enemies\EnemyHandler.cs" />
-    <Compile Include="Classes\GameObjects\Tower\Tower.cs" />
+    <Compile Include="Classes\GameObjects\Tower\AbstractTower.cs" />
+    <Compile Include="Classes\GameObjects\Tower\TowerHandler.cs" />
     <Compile Include="Classes\GameStates\GameOver.cs" />
     <Compile Include="Classes\GameStates\GameState.cs" />
     <Compile Include="Classes\GameStates\InGame.cs" />
