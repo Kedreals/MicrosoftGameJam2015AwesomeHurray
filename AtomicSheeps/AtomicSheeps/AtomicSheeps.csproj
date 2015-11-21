@@ -58,6 +58,8 @@
     <Compile Include="Classes\GameObjects\Enemies\AbstractEnemy.cs" />
     <Compile Include="Classes\GameObjects\Enemies\EnemyHandler.cs" />
     <Compile Include="Classes\GameObjects\Enemies\TestEnemy.cs" />
+    <Compile Include="Classes\GameObjects\Projectile\Projectile.cs" />
+    <Compile Include="Classes\GameObjects\Projectile\ProjectileHandler.cs" />
     <Compile Include="Classes\GameObjects\Tower\AbstractTower.cs" />
     <Compile Include="Classes\GameObjects\Tower\TestTower.cs" />
     <Compile Include="Classes\GameObjects\Tower\TowerHandler.cs" />
