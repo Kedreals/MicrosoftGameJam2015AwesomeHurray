@@ -1,4 +1,5 @@
 ﻿using AtomicSheeps.Classes.GameObjects.Enemies;
+using AtomicSheeps.Classes.GameStates;
 using AtomicSheeps.Core;
 using SFML.Graphics;
 using System;
@@ -17,6 +18,7 @@ namespace AtomicSheeps.Classes.GameObjects.Tower
         public float Costs { get; protected set; }
         public TimeSpan Cooldown { get; protected set; }
         public bool Selected { get; protected set; }
+        public bool IsAlive { get; private set; }
 
         CircleShape c;
 
@@ -26,6 +28,8 @@ namespace AtomicSheeps.Classes.GameObjects.Tower
             MouseControler.ButtonPressed += OnButtonPress;
             MouseControler.ButtonReleased += OnButtonRelease;
             TowerHandler.Towers.Add(this);
+
+            IsAlive = true;
 
             c = new CircleShape(Range);
             Color col = Color.Red;
@@ -63,7 +67,19 @@ namespace AtomicSheeps.Classes.GameObjects.Tower
 
         public void OnButtonRelease(object sender, MouseButtonEventArgs e)
         {
-           Selected = false;
+            //MouseControler.ButtonPressed -= OnButtonPress;
+            //MouseControler.ButtonReleased -= OnButtonRelease;
+
+            Selected = false;
+
+            try
+            {
+                sprite.Position = InGame.Level.GetValidPosition((Vec2f)sprite.Position + new Vec2f((sprite.Texture.Size.X * sprite.Scale.X) / 2, (sprite.Texture.Size.Y * sprite.Scale.Y) / 2));
+            }
+            catch (PathException)
+            {
+                IsAlive = false;
+            }
         }
 
         public Sprite IsMouseInMe()
