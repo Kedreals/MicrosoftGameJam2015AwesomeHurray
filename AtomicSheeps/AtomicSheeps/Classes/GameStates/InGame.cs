@@ -4,13 +4,13 @@ using AtomicSheeps.Classes.MapFolder;
 using SFML.Audio;
 using AtomicSheeps.Classes.GameObjects.Enemies;
 using System;
+using AtomicSheeps.Classes.GameObjects.Tower;
 
 namespace AtomicSheeps.Classes.GameStates
 {
     class InGame : IGameState
     {
         Map Level;
-        CircleShape c;
         Sound BackgroundMusic;
 
         public void Draw(RenderWindow window)
@@ -18,20 +18,15 @@ namespace AtomicSheeps.Classes.GameStates
             Level.Draw(window);
 
             EnemyHandler.Draw(window);
-
-            window.Draw(c);
+            TowerHandler.Draw(window);
         }
 
         public void Initialize()
-        {
-            c = new CircleShape(120);
-
-            Color col = Color.Red;
-            col.A = 100;
-
-            c.FillColor = col;
+        {            
             EnemyHandler.Initialize();
+            TowerHandler.Initialize();
             new TestEnemy(Level);
+            new TestTower();
         }
 
         public void LoadContent()
@@ -45,14 +40,10 @@ namespace AtomicSheeps.Classes.GameStates
 
         public EGameStates Update(GameTime time)
         {
-            Vec2f pos = MouseControler.MousePosition;
-
-            c.Position = pos;
-            c.Position = (Vec2f)c.Position - new Vec2f(c.Radius, c.Radius);
-
             try
             {
                 EnemyHandler.Update(time);
+                TowerHandler.Update(time);
             }
             catch (ArgumentOutOfRangeException)
             {

@@ -16,11 +16,24 @@ namespace AtomicSheeps.Classes.GameObjects.Tower
         public float Range { get; protected set; }
         public float Costs { get; protected set; }
         public TimeSpan Cooldown { get; protected set; }
+        public bool Selected { get; protected set; }
+
+        CircleShape c;
 
         public AbstractTower()
         {
+            LoadStats();
+            MouseControler.ButtonPressed += OnButtonPress;
+            MouseControler.ButtonReleased += OnButtonRelease;
             TowerHandler.Towers.Add(this);
+
+            c = new CircleShape(Range);
+            Color col = Color.Red;
+            col.A = 100;
+            c.FillColor = col;
         }
+
+        protected abstract void LoadStats();
 
         public Vec2f Position { get { return sprite.Position; } }
 
@@ -33,7 +46,7 @@ namespace AtomicSheeps.Classes.GameObjects.Tower
             foreach (AbstractEnemy enemy in EnemyHandler.Enemies)
             {
                 currentDistance = this.Position.Distance(enemy.Position);
-                if (currentDistance <= Range && (timeSpan.Add(Cooldown)).CompareTo(gTime) != (-1) && currentDistance < distance)
+                if (currentDistance <= Range && (timeSpan.Add(Cooldown)).CompareTo(gTime.TotalTime) != (-1) && currentDistance < distance)
                 {
                     enemy.DoDamage(Damage);
                     timeSpan = gTime.TotalTime;
@@ -41,14 +54,43 @@ namespace AtomicSheeps.Classes.GameObjects.Tower
                 }
             }
         }
- 
+
+        public void OnButtonPress(object sender, MouseButtonEventArgs e)
+        {
+            if (MouseControler.MouseIn(sprite))
+                Selected = true;
+        }
+
+        public void OnButtonRelease(object sender, MouseButtonEventArgs e)
+        {
+           Selected = false;
+        }
+
+        public Sprite IsMouseInMe()
+        {
+            return sprite;
+        }
+
         public void Update(GameTime gTime)
         {
             Shooting(gTime);
+            if(Selected)
+            {
+                sprite.Position = MouseControler.MousePosition - new Vec2f((sprite.Texture.Size.X * sprite.Scale.X)/2, (sprite.Texture.Size.Y * sprite.Scale.Y) / 2);
+            }
+
+            if (MouseControler.MouseIn(sprite))
+            {
+                c.Position = (Vec2f)sprite.Position - Range + new Vec2f((sprite.Texture.Size.X * sprite.Scale.X) / 2, (sprite.Texture.Size.Y * sprite.Scale.Y) / 2);
+            }
+
         }
         public void Draw(RenderWindow win)
         {
             win.Draw(sprite);
+
+            if (MouseControler.MouseIn(sprite))
+                win.Draw(c);
         }
     }
 }
