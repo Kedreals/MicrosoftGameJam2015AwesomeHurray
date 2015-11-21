@@ -20,33 +20,45 @@ namespace AtomicSheeps.Classes.GameStates
 
         public void OnKeyPress(object sender, KeyEventArgs e)
         {
-            KeyboardControler.KeyPressed -= OnKeyPress;
+            RemoveControls();
             ReturnState = EGameStates.MainMenu;
         }
 
         public void OnKeyRelease(object sender, KeyEventArgs e)
         {
-            KeyboardControler.KeyReleased -= OnKeyRelease;
         }
 
         public void OnButtonPress(object sender, MouseButtonEventArgs e)
         {
-            MouseControler.ButtonPressed -= OnButtonPress;
+            RemoveControls();
             ReturnState = EGameStates.MainMenu;
         }
 
         public void OnButtonRelease(object sender, MouseButtonEventArgs e)
         {
-            MouseControler.ButtonReleased -= OnButtonRelease;
         }
 
-        public void Initialize()
+        public void AddControls()
         {
             KeyboardControler.KeyPressed += OnKeyPress;
             KeyboardControler.KeyReleased += OnKeyRelease;
 
             MouseControler.ButtonPressed += OnButtonPress;
             MouseControler.ButtonReleased += OnButtonRelease;
+        }
+
+        public void RemoveControls()
+        {
+            KeyboardControler.KeyPressed -= OnKeyPress;
+            KeyboardControler.KeyReleased -= OnKeyRelease;
+
+            MouseControler.ButtonPressed -= OnButtonPress;
+            MouseControler.ButtonReleased -= OnButtonRelease;
+        }
+
+        public void Initialize()
+        {
+            AddControls();
 
             test = new RenderTexture((uint)Game.WindowSize.X, (uint)Game.WindowSize.Y);
             testShader = new Shader(null, "Shader/Overlap.frag");
