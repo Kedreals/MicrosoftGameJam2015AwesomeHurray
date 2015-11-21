@@ -13,10 +13,6 @@ namespace AtomicSheeps.Classes.GameStates
         EGameStates ReturnState = EGameStates.TitelScreen;
 
         Sprite Background;
-        CircleShape c;
-        RenderTexture test;
-        RenderStates shaderState;
-        Shader testShader;
 
         public void OnKeyPress(object sender, KeyEventArgs e)
         {
@@ -59,16 +55,6 @@ namespace AtomicSheeps.Classes.GameStates
         public void Initialize()
         {
             AddControls();
-
-            test = new RenderTexture((uint)Game.WindowSize.X, (uint)Game.WindowSize.Y);
-            testShader = new Shader(null, "Shader/Overlap.frag");
-            shaderState = new RenderStates(testShader);
-            c = new CircleShape(120);
-
-            Color col = Color.Red;
-            col.A = 100;
-
-            c.FillColor = col;
         }
 
         public void LoadContent()
@@ -81,26 +67,11 @@ namespace AtomicSheeps.Classes.GameStates
 
         public void Draw(RenderWindow window)
         {
-            if (Background != null)
-            {
-                window.Draw(Background, shaderState);
-            }
+            window.Draw(Background);
         }
 
         public EGameStates Update(GameTime time)
         {
-            Vec2f pos = MouseControler.MousePosition;
-
-            c.Position = new Vec2f(0, Game.WindowSize.Y) - new Vec2f(-pos.X, pos.Y);
-            c.Position = (Vec2f)c.Position - new Vec2f(c.Radius, c.Radius);
-
-            test.Clear(Color.White);
-            test.Draw(c);
-            test.Draw(c);
-            test.Display();
-
-            testShader.SetParameter("overlay", test.Texture);
-
             return ReturnState;
         }
     }
