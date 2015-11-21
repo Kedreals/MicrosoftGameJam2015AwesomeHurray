@@ -51,10 +51,10 @@ namespace AtomicSheeps.Classes.GameObjects.Tower
             {
                 currentDistance = this.Position.Distance(enemy.Position);
                                 
-                if (currentDistance <= Range && (timeSpan.Add(Cooldown)).CompareTo(gTime.TotalTime) < 0)
+                if (currentDistance <= Range && timeSpan.CompareTo(gTime.TotalTime) < 0)
                 {
-                    //enemy.DoDamage(Damage);
-                    timeSpan = gTime.TotalTime;
+                    enemy.DoDamage(Damage);
+                    timeSpan = gTime.TotalTime.Add(Cooldown);
                     break;
                 }
             }
@@ -68,9 +68,6 @@ namespace AtomicSheeps.Classes.GameObjects.Tower
 
         public void OnButtonRelease(object sender, MouseButtonEventArgs e)
         {
-            //MouseControler.ButtonPressed -= OnButtonPress;
-            //MouseControler.ButtonReleased -= OnButtonRelease;
-
             Selected = false;
 
             try
@@ -80,12 +77,9 @@ namespace AtomicSheeps.Classes.GameObjects.Tower
             catch (PathException)
             {
                 IsAlive = false;
+                MouseControler.ButtonPressed -= OnButtonPress;
+                MouseControler.ButtonReleased -= OnButtonRelease;
             }
-        }
-
-        public Sprite IsMouseInMe()
-        {
-            return sprite;
         }
 
         public void Update(GameTime gTime)
