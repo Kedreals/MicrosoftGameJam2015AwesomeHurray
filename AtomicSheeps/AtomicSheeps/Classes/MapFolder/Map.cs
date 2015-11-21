@@ -11,7 +11,7 @@ namespace AtomicSheeps.Classes.MapFolder
     class Map
     {
         Tile[,] Tiles;
-        float TileSize = 32;
+        public static float TileSize { get { return 64; } }
 
         static Color white = Color.FromArgb(255, 255, 255);
         static Color black = Color.FromArgb(0, 0, 0);
@@ -28,7 +28,59 @@ namespace AtomicSheeps.Classes.MapFolder
                     {
                         if (bMap.GetPixel(i, j).Equals(black))
                         {
-                            Tiles[i, j] = null;
+                            string Path = "";
+
+                            bool left;
+
+                            if (i - 1 < 0)
+                                left = false;
+                            else
+                                left = bMap.GetPixel(i - 1, j).Equals(white);
+
+                            bool right;
+
+                            if (i + 1 >= Tiles.GetLength(0))
+                                right = false;
+                            else
+                                right = bMap.GetPixel(i + 1, j).Equals(white);
+
+                            bool up;
+
+                            if (j - 1 < 0)
+                                up = false;
+                            else
+                                up = bMap.GetPixel(i, j - 1).Equals(white);
+
+                            bool down;
+
+                            if (j + 1 >= Tiles.GetLength(1))
+                                down = false;
+                            else
+                                down = bMap.GetPixel(i, j + 1).Equals(white);
+
+                            if (!left && !right && !up && !down)
+                                Path = "Assets/Textures/ground_without_grass.png";
+
+                            if (!left && !right && up && down)
+                                Path = "Assets/Textures/ground_straight.png";
+
+                            if (left && right && !up && !down)
+                                Path = "Assets/Textures/ground_straight_2.png";
+
+                            if (left && !right && up && !down)
+                                Path = "Assets/Textures/ground_corner_left_up.png";
+
+                            if (left && !right && !up && down)
+                                Path = "Assets/Textures/ground_corner_left_down.png";
+
+                            if (!left && right && up && !down)
+                                Path = "Assets/Textures/ground_corner_right_up.png";
+
+                            if (!left && right && !up && down)
+                                Path = "Assets/Textures/ground_corner_right_down.png";
+
+                            if (Path != "")
+                                Tiles[i, j] = new Tile(true, new Vec2f(i, j) * TileSize, Path);
                         }
                     }
                 }

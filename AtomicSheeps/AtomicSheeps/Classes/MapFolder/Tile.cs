@@ -16,6 +16,8 @@ namespace AtomicSheeps.Classes.MapFolder
         public Tile(bool isPath, Vec2f WorldPosition, string texturePath = "Assets/Textures/grass.png")
         {
             S = new Sprite(new Texture(texturePath));
+            S.Position = WorldPosition;
+            S.Scale = new Vec2f(Map.TileSize, Map.TileSize) / new Vec2f(S.Texture.Size.X, S.Texture.Size.Y);
             IsPath = isPath;
         }
 
