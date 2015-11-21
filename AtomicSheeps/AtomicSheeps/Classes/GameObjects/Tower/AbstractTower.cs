@@ -69,7 +69,7 @@ namespace AtomicSheeps.Classes.GameObjects.Tower
         {
             //MouseControler.ButtonPressed -= OnButtonPress;
             //MouseControler.ButtonReleased -= OnButtonRelease;
-            
+
             Selected = false;
 
             try
