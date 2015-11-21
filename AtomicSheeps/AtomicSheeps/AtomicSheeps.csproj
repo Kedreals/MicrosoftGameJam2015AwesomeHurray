@@ -55,6 +55,8 @@
   <ItemGroup>
     <Compile Include="Classes\AbstractGame.cs" />
     <Compile Include="Classes\Game.cs" />
+    <Compile Include="Classes\GameObjects\Enemies\AbstractEnemy.cs" />
+    <Compile Include="Classes\GameObjects\Enemies\EnemyHandler.cs" />
     <Compile Include="Classes\GameObjects\Tower\Tower.cs" />
     <Compile Include="Classes\GameStates\GameOver.cs" />
     <Compile Include="Classes\GameStates\GameState.cs" />

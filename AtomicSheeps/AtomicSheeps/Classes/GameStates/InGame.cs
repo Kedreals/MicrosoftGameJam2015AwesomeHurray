@@ -7,13 +7,13 @@ namespace AtomicSheeps.Classes.GameStates
 {
     class InGame : IGameState
     {
-        Map Level1;
+        Map Level;
         CircleShape c;
         Sound BackgroundMusic;
 
         public void Draw(RenderWindow window)
         {
-            Level1.Draw(window);
+            Level.Draw(window);
             window.Draw(c);
         }
 
@@ -30,7 +30,7 @@ namespace AtomicSheeps.Classes.GameStates
 
         public void LoadContent()
         {
-            Level1 = new Map(new System.Drawing.Bitmap("Assets/Bitmap-Levels/Level1.bmp"));
+            Level = new Map(new System.Drawing.Bitmap("Assets/Bitmap-Levels/Level1.bmp"));
             BackgroundMusic = new Sound(new SoundBuffer("Assets/Sounds/Farm-SoundBible.com-1720780826.wav"));
             BackgroundMusic.Loop = true;
             BackgroundMusic.Volume = 100;

@@ -1,4 +1,5 @@
-﻿using AtomicSheeps.Core;
+﻿using AtomicSheeps.Classes.GameObjects.Enemies;
+using AtomicSheeps.Core;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -12,11 +13,14 @@ namespace AtomicSheeps.Classes.MapFolder
     {
         Tile[,] Tiles;
         public static float TileSize { get { return 64; } }
-        public Vec2f SpawnPosition { get; private set; }
+        Vec2f SpawnPosition;
+        public Vec2f[] Verticies { get; private set; }
 
         static Color white = Color.FromArgb(255, 255, 255);
         static Color black = Color.FromArgb(0, 0, 0);
         static Color red = Color.FromArgb(255, 0, 0);
+        static Color yellow = Color.FromArgb(255, 255, 0);
+
         Random r = new Random();
 
         public Map(Bitmap bMap)
@@ -101,6 +105,12 @@ namespace AtomicSheeps.Classes.MapFolder
                         }
                     }
                 }
+
+            SetMovementVeticies();
+        }
+
+        void SetMovementVeticies()
+        {
         }
 
         public void Draw(SFML.Graphics.RenderWindow win)
