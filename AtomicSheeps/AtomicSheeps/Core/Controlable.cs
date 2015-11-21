@@ -13,5 +13,8 @@ namespace AtomicSheeps.Core
 
         void OnButtonPress(object sender, MouseButtonEventArgs e);
         void OnButtonRelease(object sender, MouseButtonEventArgs e);
+
+        void AddControls();
+        void RemoveControls();
     }
 }
