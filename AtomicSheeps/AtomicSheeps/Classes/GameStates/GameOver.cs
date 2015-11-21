@@ -24,6 +24,7 @@ namespace AtomicSheeps.Classes.GameStates
         public void LoadContent()
         {
             Background = new Sprite(new Texture("Assets/Textures/Game Over.png"));
+            Background.Scale = Game.WindowSize / new Vec2f(Background.Texture.Size.X, Background.Texture.Size.Y);
         }
 
         public EGameStates Update(GameTime time)
