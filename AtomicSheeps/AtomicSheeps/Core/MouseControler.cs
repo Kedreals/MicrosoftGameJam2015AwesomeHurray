@@ -32,7 +32,7 @@ namespace AtomicSheeps.Core
         /// <summary>
         /// event that fires when a button is relized
         /// </summary>
-        public static event EventHandler<MouseButtonEventArgs> Relessed;
+        public static event EventHandler<MouseButtonEventArgs> ButtonReleased;
 
         /// <summary>
         /// is triggered once when a button is pressed
@@ -45,10 +45,10 @@ namespace AtomicSheeps.Core
         /// triggers the relize event
         /// </summary>
         /// <param name="b"></param>
-        static void OnRealize(MouseButtonEventArgs e)
+        static void OnButtonRelease(MouseButtonEventArgs e)
         {
-            EventHandler<MouseButtonEventArgs> handler = Relessed;
-            if (Relessed != null)
+            EventHandler<MouseButtonEventArgs> handler = ButtonReleased;
+            if (ButtonReleased != null)
                 handler(null, e);
         }
 
@@ -100,7 +100,7 @@ namespace AtomicSheeps.Core
 
         private static void DebugInitialize()
         {
-            Relessed += (sender, ev) => { Console.WriteLine("Released " + ev.Button); };
+            ButtonReleased += (sender, ev) => { Console.WriteLine("Released " + ev.Button); };
             ButtonPressed += (sender, ev) => { Console.WriteLine("Pressed " + ev.Button); };
         }
 
@@ -192,7 +192,7 @@ namespace AtomicSheeps.Core
                     e.Button = (MouseButton)i;
                     e.Position.X = Mouse.GetPosition(window).X;
                     e.Position.Y = Mouse.GetPosition(window).Y;
-                    OnRealize(e);
+                    OnButtonRelease(e);
                 }
 
                 wasPressed[i] = isPressed[i];

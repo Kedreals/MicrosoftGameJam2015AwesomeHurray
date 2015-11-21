@@ -59,6 +59,7 @@
     <Compile Include="Classes\GameStates\InGame.cs" />
     <Compile Include="Classes\GameStates\MainMenu.cs" />
     <Compile Include="Classes\GameStates\TitleScreen.cs" />
+    <Compile Include="Core\Controlable.cs" />
     <Compile Include="Core\Controls.cs" />
     <Compile Include="Core\GameTime.cs" />
     <Compile Include="Core\KeyboardControler.cs" />
@@ -74,8 +75,23 @@
     <None Include="Shader\Overlap.frag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Shader\SelectedShader.frag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Textures\Exit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Textures\MainMenu.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Textures\Options.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Textures\Start.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Textures\TitelScreen.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
