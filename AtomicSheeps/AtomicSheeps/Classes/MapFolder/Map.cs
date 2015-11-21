@@ -12,9 +12,11 @@ namespace AtomicSheeps.Classes.MapFolder
     {
         Tile[,] Tiles;
         public static float TileSize { get { return 64; } }
+        public Vec2f SpawnPosition { get; private set; }
 
         static Color white = Color.FromArgb(255, 255, 255);
         static Color black = Color.FromArgb(0, 0, 0);
+        static Color red = Color.FromArgb(255, 0, 0);
 
         public Map(Bitmap bMap)
         {
@@ -81,6 +83,15 @@ namespace AtomicSheeps.Classes.MapFolder
 
                             if (Path != "")
                                 Tiles[i, j] = new Tile(true, new Vec2f(i, j) * TileSize, Path);
+                        }
+
+                        if(bMap.GetPixel(i, j).Equals(red))
+                        {
+                            Vec2f pos = new Vec2f(i, j) * TileSize;
+
+                            Tiles[i, j] = new Tile(true, pos, "Assets/Textures/house_humans.png");
+
+                            SpawnPosition = pos + new Vec2f(TileSize / 2, TileSize / 2);
                         }
                     }
                 }

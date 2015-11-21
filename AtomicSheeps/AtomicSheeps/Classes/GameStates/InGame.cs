@@ -13,13 +13,23 @@ namespace AtomicSheeps.Classes.GameStates
     {
         Map Level1;
 
+        CircleShape c;
+
         public void Draw(RenderWindow window)
         {
             Level1.Draw(window);
+            window.Draw(c);
         }
 
         public void Initialize()
         {
+            c = new CircleShape(120);
+
+            Color col = Color.Red;
+            col.A = 100;
+
+            c.FillColor = col;
+
         }
 
         public void LoadContent()
@@ -29,6 +39,13 @@ namespace AtomicSheeps.Classes.GameStates
 
         public EGameStates Update(GameTime time)
         {
+            Vec2f pos = MouseControler.MousePosition;
+
+            c.Radius = (float)time.TotalTime.TotalSeconds;
+
+            c.Position = pos;
+            c.Position = (Vec2f)c.Position - new Vec2f(c.Radius, c.Radius);
+
             return EGameStates.InGame;
         }
     }
