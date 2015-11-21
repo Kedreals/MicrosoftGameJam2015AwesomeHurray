@@ -140,11 +140,12 @@ namespace AtomicSheeps.Core
         public static bool MouseIn(Sprite sprite)
         {
             Vec2f v = new Vec2f(Mouse.GetPosition(window).X, Mouse.GetPosition(window).Y);
+            Vec2f spriteSize = new Vec2f(sprite.Texture.Size.X * sprite.Scale.X, sprite.Texture.Size.Y * sprite.Scale.Y);
 
-            if (v.X < sprite.Position.X || v.X > sprite.Position.X + sprite.Texture.Size.X)
+            if (v.X < sprite.Position.X || v.X > sprite.Position.X + spriteSize.X)
                 return false;
 
-            if (v.Y < sprite.Position.Y || v.Y > sprite.Position.Y + sprite.Texture.Size.Y)
+            if (v.Y < sprite.Position.Y || v.Y > sprite.Position.Y + spriteSize.Y)
                 return false;
 
             return true;
