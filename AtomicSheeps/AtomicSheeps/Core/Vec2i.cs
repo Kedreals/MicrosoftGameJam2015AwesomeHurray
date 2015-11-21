@@ -99,6 +99,11 @@ namespace AtomicSheeps.Core
             return new Vec2i(a.X % b.X, a.Y % b.Y);
         }
 
+        public static Vec2i operator -(Vec2i v)
+        {
+            return new Vec2i(-v.X, -v.Y);
+        }
+
         //other************************************************************************
 
         public override bool Equals(object obj)

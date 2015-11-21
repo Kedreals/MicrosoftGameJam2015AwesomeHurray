@@ -2,6 +2,8 @@
 using SFML.Graphics;
 using AtomicSheeps.Classes.MapFolder;
 using SFML.Audio;
+using AtomicSheeps.Classes.GameObjects.Enemies;
+using System;
 
 namespace AtomicSheeps.Classes.GameStates
 {
@@ -14,6 +16,9 @@ namespace AtomicSheeps.Classes.GameStates
         public void Draw(RenderWindow window)
         {
             Level.Draw(window);
+
+            EnemyHandler.Draw(window);
+
             window.Draw(c);
         }
 
@@ -25,7 +30,8 @@ namespace AtomicSheeps.Classes.GameStates
             col.A = 100;
 
             c.FillColor = col;
-
+            EnemyHandler.Initialize();
+            new TestEnemy(Level);
         }
 
         public void LoadContent()
@@ -43,6 +49,16 @@ namespace AtomicSheeps.Classes.GameStates
 
             c.Position = pos;
             c.Position = (Vec2f)c.Position - new Vec2f(c.Radius, c.Radius);
+
+            try
+            {
+                EnemyHandler.Update(time);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return EGameStates.GameOver;
+            }
+
 
             return EGameStates.InGame;
         }
