@@ -114,7 +114,7 @@ namespace AtomicSheeps.Classes.MapFolder
                     }
                 }
 
-            SetMovementVeticies();
+            //SetMovementVeticies();
         }
 
         void SetMovementVeticies()
