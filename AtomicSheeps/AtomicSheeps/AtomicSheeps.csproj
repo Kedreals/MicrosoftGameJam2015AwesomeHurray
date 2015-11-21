@@ -71,6 +71,7 @@
     <Compile Include="Core\GameTime.cs" />
     <Compile Include="Core\KeyboardControler.cs" />
     <Compile Include="Core\MouseControler.cs" />
+    <Compile Include="Core\PathException.cs" />
     <Compile Include="Core\Rectangle.cs" />
     <Compile Include="Core\Vec2f.cs" />
     <Compile Include="Core\Vec2i.cs" />
