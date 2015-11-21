@@ -14,8 +14,6 @@ namespace AtomicSheeps.Classes.GameStates
 
         Sprite Background;
 
-        
-
         public void OnKeyPress(object sender, KeyEventArgs e)
         {
             RemoveControls();
