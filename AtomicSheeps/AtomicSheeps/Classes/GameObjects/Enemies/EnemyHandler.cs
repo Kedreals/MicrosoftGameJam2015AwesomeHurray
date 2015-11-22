@@ -13,13 +13,28 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
     {
         public static List<AbstractEnemy> Enemies { get; private set; }
 
-        static int delay = 100;
-        static TimeSpan lastEnemy = new TimeSpan();
+        static TimeSpan delay = new TimeSpan(0,0,0,0,100);
+        static TimeSpan nextEnemy;
+        static bool SpawnNextWave = true;
+        static int SpawnedNumber = 0;
+        static int WaveSize;
+
+        static EEnemy WaveType = EEnemy.Scissor;
+
+        enum EEnemy
+        {
+            None = -1,
+
+            Scissor,
+
+            Count
+        }
 
         public static void Initialize()
         {
             Enemies = new List<AbstractEnemy>();
-            
+            nextEnemy = new TimeSpan(0, 0, 10);
+            WaveSize = 10;
         }
 
         public static void Add(AbstractEnemy e)
@@ -29,21 +44,48 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
 
         public static void Draw(RenderWindow win)
         {
-            foreach(AbstractEnemy e in Enemies)
-                if (e != null)
-                    e.Draw(win);
+            for (int i = Enemies.Count - 1; i >= 0; --i)
+                if (Enemies[i] != null)
+                    Enemies[i].Draw(win);
+        }
+
+        static void SpawnWave(GameTime t)
+        {
+            if (t.TotalTime.CompareTo(nextEnemy) >= 0)
+            {
+                if (SpawnedNumber < WaveSize)
+                {
+                    SpawnedNumber++;
+
+                    Type[] ty = typeof(AbstractEnemy).Assembly.GetTypes();
+
+                    foreach (Type te in ty)
+                        if (te.IsSubclassOf(typeof(AbstractEnemy)) && te.Name.Split('.').Last().Equals(WaveType.ToString().Split('.').Last()))
+                            Activator.CreateInstance(te, InGame.Level);
+
+                    nextEnemy = t.TotalTime + delay;
+                }
+                else
+                {
+                    SpawnNextWave = false;
+                    SpawnedNumber = 0;
+                }
+            }
         }
 
         public static void Update(GameTime gTime)
         {
-            if (gTime.TotalTime.Seconds > 10)
+            if (SpawnNextWave)
+                SpawnWave(gTime);
+
+            if(Enemies.Count == 0 && !SpawnNextWave)
             {
-                if ((gTime.TotalTime - lastEnemy).Milliseconds > delay)
-                {
-                    new Scissor(InGame.Level);
-                    lastEnemy = gTime.TotalTime;
-                }
+                nextEnemy = gTime.TotalTime + new TimeSpan(0, 0, 10);
+                SpawnNextWave = true;
+                WaveType = (EEnemy)new Random().Next((int)EEnemy.Count);
+                WaveSize = (int)WaveType + ((int)WaveType + 1 + gTime.TotalTime.Minutes) * 10;
             }
+
             for(int i = 0; i<Enemies.Count; ++i)
             {
                 if (!Enemies[i].IsAlive)

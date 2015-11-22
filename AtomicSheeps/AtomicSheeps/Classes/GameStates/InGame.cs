@@ -12,7 +12,7 @@ namespace AtomicSheeps.Classes.GameStates
 {
     class InGame : IGameState
     {
-        public static int Money = 20;
+        public static float Money = 20;
         Text MoneyTxt;
         public static Map Level { get; private set; }
         Sound BackgroundMusic;
@@ -48,16 +48,19 @@ namespace AtomicSheeps.Classes.GameStates
 
         public void OnButtonPress(object sender, MouseButtonEventArgs e)
         {
-            if (MouseControler.MouseIn(testTower.sprite))
+
+            if (MouseControler.MouseIn(testTower.sprite) && Money >= testTower.Costs)
             {
                 new TestTower();
                 TowerHandler.Towers[TowerHandler.Towers.Count - 1].Selected = true;
+                Money -= testTower.Costs;
             }
 
-            if (MouseControler.MouseIn(schafGroßTower.sprite))
+            if (MouseControler.MouseIn(schafGroßTower.sprite) && Money >= schafGroßTower.Costs)
             {
                 new SchafGroßTower();
                 TowerHandler.Towers[TowerHandler.Towers.Count - 1].Selected = true;
+                Money -= schafGroßTower.Costs;
             }
         }
         public void OnButtonRelease(object sender, MouseButtonEventArgs e)
@@ -74,6 +77,7 @@ namespace AtomicSheeps.Classes.GameStates
                 }
                 catch (PathException)
                 {
+                    Money += LastTower.Costs;
                     LastTower.IsAlive = false;
                 }
             }
@@ -117,7 +121,7 @@ namespace AtomicSheeps.Classes.GameStates
             font = new Font("Assets/Fonts/data-latin.ttf");
 
             txt = new Text("", font, 20);
-            txt.Position = new Vec2f(Infobox.Position.X + 10, Infobox.Position.Y + 30);
+            txt.Position = new Vec2f(Infobox.Position.X + 10, Infobox.Position.Y + 40);
 
             MoneyTxt = new Text("", font, 20);
             MoneyTxt.Position = new Vec2f(Infobox.Position.X + 10, Infobox.Position.Y + 10);
@@ -134,8 +138,6 @@ namespace AtomicSheeps.Classes.GameStates
 
             try
             {
-                if(time.TotalTime.TotalSeconds%4 >= 0 && time.TotalTime.TotalSeconds%4 <= 0.1)
-                    Money++;
                 EnemyHandler.Update(time);
                 TowerHandler.Update(time);
                 ProjectileHandler.Update(time);
@@ -153,7 +155,6 @@ namespace AtomicSheeps.Classes.GameStates
             {
                 return EGameStates.GameOver;
             }
-
 
             return EGameStates.InGame;
         }
