@@ -17,6 +17,7 @@ namespace AtomicSheeps.Classes.GameStates
         Sprite Infobox;
         Sprite TestTower;
         AbstractTower LastTower;
+        Font font;
 
         public void Draw(RenderWindow window)
         {
@@ -82,6 +83,8 @@ namespace AtomicSheeps.Classes.GameStates
             TestTower = new Sprite(new Texture("Assets/Textures/SchafVerstrahlt.png"));
             TestTower.Position = new Vec2f(128, Game.WindowSize.Y - 192);
 
+            font = new Font("Assets/Fonts/dada-latinttf.ttf");
+            
             BackgroundMusic = new Sound(new SoundBuffer("Assets/Sounds/Farm-SoundBible.com-1720780826.wav"));
             BackgroundMusic.Loop = true;
             BackgroundMusic.Volume = 100;
