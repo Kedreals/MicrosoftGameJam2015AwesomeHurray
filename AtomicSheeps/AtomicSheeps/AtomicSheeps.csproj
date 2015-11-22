@@ -62,7 +62,9 @@
     <Compile Include="Classes\GameObjects\ProjectileFolder\Projectile.cs" />
     <Compile Include="Classes\GameObjects\ProjectileFolder\ProjectileHandler.cs" />
     <Compile Include="Classes\GameObjects\Tower\AbstractTower.cs" />
+    <Compile Include="Classes\GameObjects\Tower\RainbowSheep.cs" />
     <Compile Include="Classes\GameObjects\Tower\SchafGroßTower.cs" />
+    <Compile Include="Classes\GameObjects\Tower\SheepSniper.cs" />
     <Compile Include="Classes\GameObjects\Tower\TestTower.cs" />
     <Compile Include="Classes\GameObjects\Tower\TowerHandler.cs" />
     <Compile Include="Classes\GameStates\GameOver.cs" />
@@ -179,10 +181,22 @@
     <Content Include="Assets\Textures\Raster.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Textures\Regenbogenball.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Textures\SchafGross.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Textures\SchafKettensäge1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Textures\SchafKlein.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Textures\SchafSniper.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Textures\SchafUnicorn.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Textures\SchafVerstrahlt.png">
