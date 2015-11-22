@@ -135,7 +135,7 @@ namespace AtomicSheeps.Classes.GameStates
 
         public void LoadContent()
         {
-            Level = new Map(new System.Drawing.Bitmap("Assets/Bitmap-Levels/Level1.bmp"));
+            Level = new Map(new System.Drawing.Bitmap("Assets/Bitmap-Levels/Level3.bmp"));
             Store = new Sprite(new Texture("Assets/Textures/Raster.png"));
             Infobox = new Sprite(new Texture("Assets/Textures/Infotafel.png"));
             Infobox.Position = new Vec2f(0, Game.WindowSize.Y - 192);
