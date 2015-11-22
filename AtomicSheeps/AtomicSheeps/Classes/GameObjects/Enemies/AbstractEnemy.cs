@@ -17,6 +17,7 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
 
         private Sprite LifeBar;
         public Vec2f Position { get { return sprite.Position; } }
+        public Vec2f Size { get { return new Vec2f(sprite.Texture.Size.X, sprite.Texture.Size.Y) * (Vec2f)sprite.Scale; } }
         public bool IsAlive { get; protected set; }
         public float Life { get; protected set; }
         float MaxLife;

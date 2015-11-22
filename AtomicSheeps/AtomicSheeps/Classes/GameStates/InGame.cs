@@ -5,8 +5,7 @@ using SFML.Audio;
 using AtomicSheeps.Classes.GameObjects.Enemies;
 using System;
 using AtomicSheeps.Classes.GameObjects.Tower;
-using System.Reflection;
-using AtomicSheeps.Classes.GameObjects.Projectile;
+using AtomicSheeps.Classes.GameObjects.ProjectileFolder;
 
 namespace AtomicSheeps.Classes.GameStates
 {
