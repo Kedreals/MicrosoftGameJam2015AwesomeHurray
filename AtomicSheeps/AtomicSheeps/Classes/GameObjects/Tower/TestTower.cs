@@ -15,7 +15,7 @@ namespace AtomicSheeps.Classes.GameObjects.Tower
         {
             sprite = new Sprite(new Texture("Assets/Textures/SchafVerstrahlt.png"));
             ProjectiePath = "Assets/Textures/Wollball.png";
-            Damage = 10;
+            Damage = 2;
             Cooldown = new TimeSpan(0,0,1);
             Range = 96;
             Costs = 5;
