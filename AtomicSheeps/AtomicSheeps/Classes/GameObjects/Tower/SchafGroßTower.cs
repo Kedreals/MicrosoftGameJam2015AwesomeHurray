@@ -18,6 +18,7 @@ namespace AtomicSheeps.Classes.GameObjects.Tower
         protected override void LoadStats()
         {
             sprite = new Sprite(new Texture("Assets/Textures/SchafGross.png"));
+            ProjectiePath = "Assets/Textures/LambOfDoom.png";
             sprite.Scale = new Vec2f(0.66f, 0.66f);
             Damage = 20;
             Cooldown = new TimeSpan(0, 0, 3);

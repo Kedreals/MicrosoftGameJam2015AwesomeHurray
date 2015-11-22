@@ -14,6 +14,7 @@ namespace AtomicSheeps.Classes.GameObjects.Tower
         protected override void LoadStats()
         {
             sprite = new Sprite(new Texture("Assets/Textures/SchafVerstrahlt.png"));
+            ProjectiePath = "Assets/Textures/Wollball.png";
             Damage = 10;
             Cooldown = new TimeSpan(0,0,1);
             Range = 96;

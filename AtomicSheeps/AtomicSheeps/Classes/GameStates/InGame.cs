@@ -134,7 +134,7 @@ namespace AtomicSheeps.Classes.GameStates
 
             try
             {
-                if(time.TotalTime.TotalSeconds%4 >= 0 && time.TotalTime.TotalSeconds%4 <= 0.1)
+                if(time.TotalTime.TotalSeconds%20 >= 0 && time.TotalTime.TotalSeconds%20 <= Help.Epsilon)
                     Money++;
                 EnemyHandler.Update(time);
                 TowerHandler.Update(time);
@@ -153,7 +153,6 @@ namespace AtomicSheeps.Classes.GameStates
             {
                 return EGameStates.GameOver;
             }
-
 
             return EGameStates.InGame;
         }
