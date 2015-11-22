@@ -56,6 +56,7 @@ namespace AtomicSheeps.Classes.GameStates
                 new TestTower();
                 TowerHandler.Towers[TowerHandler.Towers.Count - 1].Selected = true;
                 Money -= testTower.Costs;
+                CurrentTower = TowerHandler.Towers[TowerHandler.Towers.Count - 1];
             }
 
             if (MouseControler.MouseIn(schafGroßTower.sprite) && Money >= schafGroßTower.Costs)
@@ -63,6 +64,7 @@ namespace AtomicSheeps.Classes.GameStates
                 new SchafGroßTower();
                 TowerHandler.Towers[TowerHandler.Towers.Count - 1].Selected = true;
                 Money -= schafGroßTower.Costs;
+                CurrentTower = TowerHandler.Towers[TowerHandler.Towers.Count - 1];
             }
 
             if (MouseControler.MouseIn(rainbowTower.sprite) && Money >= rainbowTower.Costs)
@@ -70,6 +72,7 @@ namespace AtomicSheeps.Classes.GameStates
                 new RainbowSheep();
                 TowerHandler.Towers[TowerHandler.Towers.Count - 1].Selected = true;
                 Money -= rainbowTower.Costs;
+                CurrentTower = TowerHandler.Towers[TowerHandler.Towers.Count - 1];
             }
 
             if (MouseControler.MouseIn(sniperTower.sprite) && Money >= sniperTower.Costs)
@@ -77,13 +80,12 @@ namespace AtomicSheeps.Classes.GameStates
                 new SheepSniper();
                 TowerHandler.Towers[TowerHandler.Towers.Count - 1].Selected = true;
                 Money -= sniperTower.Costs;
+                CurrentTower = TowerHandler.Towers[TowerHandler.Towers.Count - 1];
             }
-
-            CurrentTower = TowerHandler.Towers[TowerHandler.Towers.Count - 1];
         }
         public void OnButtonRelease(object sender, MouseButtonEventArgs e)
         {
-            if (TowerHandler.Towers.Count > StoreList.Count)
+            if (CurrentTower!=null)
             {
                 CurrentTower.Selected = false;
                 CurrentTower.Activated = true;
