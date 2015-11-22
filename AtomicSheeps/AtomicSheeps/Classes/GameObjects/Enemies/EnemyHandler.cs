@@ -26,6 +26,7 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
             None = -1,
 
             Scissor,
+            Mob,
 
             Count
         }

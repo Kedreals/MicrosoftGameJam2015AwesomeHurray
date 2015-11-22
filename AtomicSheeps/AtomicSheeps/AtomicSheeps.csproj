@@ -57,6 +57,7 @@
     <Compile Include="Classes\Game.cs" />
     <Compile Include="Classes\GameObjects\Enemies\AbstractEnemy.cs" />
     <Compile Include="Classes\GameObjects\Enemies\EnemyHandler.cs" />
+    <Compile Include="Classes\GameObjects\Enemies\Mob.cs" />
     <Compile Include="Classes\GameObjects\Enemies\Scissor.cs" />
     <Compile Include="Classes\GameObjects\GameObject.cs" />
     <Compile Include="Classes\GameObjects\ProjectileFolder\Projectile.cs" />
@@ -171,6 +172,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Textures\MainMenu.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Textures\Mob1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Textures\Mob1_mirror.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Textures\Mob2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Textures\Mob2_mirror.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Textures\Options.png">
