@@ -12,45 +12,122 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
     static class EnemyHandler
     {
         public static List<AbstractEnemy> Enemies { get; private set; }
+        static List<AbstractEnemy> DrawList;
 
-        static int delay = 100;
-        static TimeSpan lastEnemy = new TimeSpan();
+        static TimeSpan delay = new TimeSpan(0,0,0,0,100);
+        static TimeSpan nextEnemy;
+        static bool SpawnNextWave = true;
+        static int SpawnedNumber = 0;
+        static int WaveSize;
+
+        static EEnemy WaveType = EEnemy.Scissor;
+        static EComparer C = new EComparer();
+
+        class EComparer : Comparer<AbstractEnemy>
+        {
+            public override int Compare(AbstractEnemy x, AbstractEnemy y)
+            {
+                return (int)(x.Position.Y - y.Position.Y);
+            }
+        }
+
+        enum EEnemy
+        {
+            None = -1,
+
+            Scissor,
+            Mob,
+            Ninja,
+
+            Count
+        }
 
         public static void Initialize()
         {
             Enemies = new List<AbstractEnemy>();
-            
+            DrawList = new List<AbstractEnemy>();
+            nextEnemy = new TimeSpan(0, 0, 10);
+            AbstractEnemy e = new Scissor(InGame.Level);
+            WaveSize = e.WaveSize;
+            delay = new TimeSpan(0, 0, 0, 0, e.TimeDelayMS);
+            e.Kill();
         }
 
         public static void Add(AbstractEnemy e)
         {
             Enemies.Add(e);
+            DrawList.Add(e);
+        }
+
+        static void RemoveAt(int i)
+        {
+            AbstractEnemy e = Enemies[i];
+            Enemies.RemoveAt(i);
+            for(int j = 0; j < DrawList.Count; ++j)
+            {
+                if (DrawList[j] == e)
+                {
+                    DrawList.RemoveAt(j);
+                    break;
+                }
+            }
         }
 
         public static void Draw(RenderWindow win)
         {
-            foreach(AbstractEnemy e in Enemies)
+            foreach (AbstractEnemy e in Enemies)
                 if (e != null)
                     e.Draw(win);
         }
 
-        public static void Update(GameTime gTime)
+        static void SpawnWave(GameTime t)
         {
-            if (gTime.TotalTime.Seconds > 10)
+            if (t.TotalTime.CompareTo(nextEnemy) >= 0)
             {
-                if ((gTime.TotalTime - lastEnemy).Milliseconds > delay)
+                if (SpawnedNumber < WaveSize)
                 {
-                    new Scissor(InGame.Level);
-                    lastEnemy = gTime.TotalTime;
+                    SpawnedNumber++;
+
+                    Type[] ty = typeof(AbstractEnemy).Assembly.GetTypes();
+
+                    foreach (Type te in ty)
+                        if (te.IsSubclassOf(typeof(AbstractEnemy)) && te.Name.Split('.').Last().Equals(WaveType.ToString().Split('.').Last()))
+                            Activator.CreateInstance(te, InGame.Level);
+
+                    nextEnemy = t.TotalTime + delay;
+                }
+                else
+                {
+                    SpawnNextWave = false;
+                    SpawnedNumber = 0;
                 }
             }
+        }
+
+        public static void Update(GameTime gTime)
+        {
+            DrawList.Sort(C);
+            if (SpawnNextWave)
+                SpawnWave(gTime);
+
+            if(Enemies.Count == 0 && !SpawnNextWave)
+            {
+                nextEnemy = gTime.TotalTime + new TimeSpan(0, 0, 10);
+                SpawnNextWave = true;
+                WaveType = (EEnemy)new Random().Next((int)EEnemy.Count);
+                Type t = typeof(AbstractEnemy).Assembly.GetType("AtomicSheeps.Classes.GameObjects.Enemies." + WaveType.ToString().Split('.').Last());
+                AbstractEnemy e = (AbstractEnemy)Activator.CreateInstance(t, InGame.Level);
+                WaveSize = e.WaveSize * ((int)gTime.TotalTime.TotalMinutes + 1);
+                delay = new TimeSpan(0, 0, 0, 0, e.TimeDelayMS);
+                e.Kill();
+            }
+
             for(int i = 0; i<Enemies.Count; ++i)
             {
                 if (!Enemies[i].IsAlive)
                 {
-                    Enemies.RemoveAt(i);
+                    RemoveAt(i);
                     --i;
-                    InGame.Money += 10;
                 }
                 else
                     Enemies[i].Update(gTime);

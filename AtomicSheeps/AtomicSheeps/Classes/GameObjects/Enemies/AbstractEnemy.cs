@@ -20,6 +20,9 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
         public Vec2f Size { get { return new Vec2f(sprite.Texture.Size.X, sprite.Texture.Size.Y) * (Vec2f)sprite.Scale; } }
         public bool IsAlive { get; protected set; }
         public float Life { get; protected set; }
+        int maxSpawn = 100;
+        public int WaveSize { get { return (int)(maxSpawn * 1 / Life); } }
+        public int TimeDelayMS { get { return (int)(100 * 1 / MovementSpeed); } }
         float MaxLife;
         protected float MovementSpeed;
         int VertexIndex;
@@ -27,12 +30,15 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
         int i = 0;
         int AnimationSteps;
         int AnimationRate;
+        protected int Money;
 
         List<Vec2f> Verticies;
 
         public AbstractEnemy(MapFolder.Map m) : base()
         {
             LoadStats();
+
+            Life *= (int)(AbstractGame.gameTime.TotalTime.TotalMinutes + 1);
 
             AnimationSteps = TextureList.Count / 2;
             AnimationRate = 1000 / AnimationSteps;
@@ -69,19 +75,32 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
 
         public void Update(GameTime gTime)
         {
-            Animate(gTime);
+            maxSpawn = 100 * (int)(gTime.TotalTime.TotalMinutes + 1);
 
-            LifeBar.Scale = new Vec2f(Life / MaxLife, 1);
-            LifeBar.Position = (Vec2f)sprite.Position + new Vec2f(0, LifeBar.Texture.Size.Y);
+            if (IsAlive)
+            {
+                Animate(gTime);
 
-            if (Position.Distance(Verticies[VertexIndex]) < Help.Epsilon)
-                VertexIndex++;
-            sprite.Position = Position + (Verticies[VertexIndex] - Position).GetNormalized() * MovementSpeed * gTime.EllapsedTime.Milliseconds;
+                LifeBar.Scale = new Vec2f(Life / MaxLife, 1);
+                LifeBar.Position = (Vec2f)sprite.Position + new Vec2f(0, LifeBar.Texture.Size.Y);
 
-            leftMovement = (Verticies[VertexIndex] - Position).X < 0;
+                if (Position.Distance(Verticies[VertexIndex]) < Help.Epsilon)
+                    VertexIndex++;
+                sprite.Position = Position + (Verticies[VertexIndex] - Position).GetNormalized() * MovementSpeed * gTime.EllapsedTime.Milliseconds;
 
-            if (Life <= 0)
-                IsAlive = false;
+                leftMovement = (Verticies[VertexIndex] - Position).X < 0;
+
+                if (Life <= 0)
+                {
+                    IsAlive = false;
+                    InGame.Money += Money;
+                }
+            }
+        }
+
+        public void Kill()
+        {
+            IsAlive = false;
         }
 
         public void Draw(RenderWindow win)

@@ -38,6 +38,7 @@ namespace AtomicSheeps.Classes.GameObjects.Tower
         protected abstract void LoadStats();
 
         public Vec2f Position { get { return sprite.Position; } }
+        protected string ProjectiePath;
 
         protected void Shooting(GameTime gTime)
         {
@@ -50,7 +51,7 @@ namespace AtomicSheeps.Classes.GameObjects.Tower
                 if (!Selected && currentDistance <= Range && timeSpan.CompareTo(gTime.TotalTime) < 0)
                 {
                     new Projectile(Position + new Vec2f((sprite.Texture.Size.X * sprite.Scale.X) / 2, (sprite.Texture.Size.Y * sprite.Scale.Y) / 2), 
-                        enemy, Damage, "Assets/Textures/Wollball.png");
+                        enemy, Damage, ProjectiePath);
                     timeSpan = gTime.TotalTime.Add(Cooldown);
                     break;
                 }
