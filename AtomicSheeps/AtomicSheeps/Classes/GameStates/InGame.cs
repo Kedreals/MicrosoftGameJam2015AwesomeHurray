@@ -5,6 +5,7 @@ using SFML.Audio;
 using AtomicSheeps.Classes.GameObjects.Enemies;
 using System;
 using AtomicSheeps.Classes.GameObjects.Tower;
+using System.Reflection;
 
 namespace AtomicSheeps.Classes.GameStates
 {
@@ -15,6 +16,7 @@ namespace AtomicSheeps.Classes.GameStates
         Sprite Store;
         Sprite Infobox;
         Sprite TestTower;
+        AbstractTower LastTower;
 
         public void Draw(RenderWindow window)
         {
@@ -23,22 +25,49 @@ namespace AtomicSheeps.Classes.GameStates
             window.Draw(Infobox);
             for (int i = 0; i < 25; ++i)
             {
-                Store.Position = new Vec2f(128 + i % 18 * 64, (Game.WindowSize.Y - 192) + (i<18?0:1) * 64);
+                Store.Position = new Vec2f(128 + i % 18 * 64, (Game.WindowSize.Y - 192) + (i < 18 ? 0 : 1) * 64);
                 window.Draw(Store);
             }
 
             window.Draw(TestTower);
-            
+
             EnemyHandler.Draw(window);
             TowerHandler.Draw(window);
         }
 
+        public void OnButtonPress(object sender, MouseButtonEventArgs e)
+        {
+            if (MouseControler.MouseIn(TestTower))
+            {
+                new TestTower();
+                TowerHandler.Towers[TowerHandler.Towers.Count - 1].Selected = true;
+            }
+        }
+        public void OnButtonRelease(object sender, MouseButtonEventArgs e)
+        {
+            if (TowerHandler.Towers.Count != 0)
+            {
+                LastTower.Selected = false;
+            
+                try
+                {
+                    LastTower.sprite.Position = Level.GetValidPosition(LastTower.Position + new Vec2f((LastTower.sprite.Texture.Size.X * LastTower.sprite.Scale.X) / 2,
+                        (LastTower.sprite.Texture.Size.Y * LastTower.sprite.Scale.Y) / 2));
+                }
+                catch (PathException)
+                {
+                    LastTower.IsAlive = false;
+                }
+            }
+        }
+
         public void Initialize()
-        {            
+        {
+            MouseControler.ButtonPressed += OnButtonPress;
+            MouseControler.ButtonReleased += OnButtonRelease;
             EnemyHandler.Initialize();
             TowerHandler.Initialize();
-            new TestEnemy(Level);
-            //new TestTower();
+            new Scissor(Level);
         }
 
         public void LoadContent()
@@ -63,6 +92,12 @@ namespace AtomicSheeps.Classes.GameStates
             {
                 EnemyHandler.Update(time);
                 TowerHandler.Update(time);
+
+                if (TowerHandler.Towers.Count != 0)
+                {
+                    LastTower = TowerHandler.Towers[TowerHandler.Towers.Count - 1];
+                }
+
             }
             catch (ArgumentOutOfRangeException)
             {
