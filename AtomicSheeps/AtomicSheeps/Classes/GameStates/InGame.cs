@@ -6,6 +6,7 @@ using AtomicSheeps.Classes.GameObjects.Enemies;
 using System;
 using AtomicSheeps.Classes.GameObjects.Tower;
 using System.Reflection;
+using AtomicSheeps.Classes.GameObjects.Projectile;
 
 namespace AtomicSheeps.Classes.GameStates
 {
@@ -32,12 +33,14 @@ namespace AtomicSheeps.Classes.GameStates
             
             EnemyHandler.Draw(window);
             TowerHandler.Draw(window);
+            ProjectileHandler.Draw(window);
         }
 
         public void Initialize()
         {
             EnemyHandler.Initialize();
             TowerHandler.Initialize();
+            ProjectileHandler.Initialize();
             new Scissor(Level);
             new TestTower();
         }
@@ -64,6 +67,7 @@ namespace AtomicSheeps.Classes.GameStates
             {
                 EnemyHandler.Update(time);
                 TowerHandler.Update(time);
+                ProjectileHandler.Update(time);
             }
             catch (ArgumentOutOfRangeException)
             {
