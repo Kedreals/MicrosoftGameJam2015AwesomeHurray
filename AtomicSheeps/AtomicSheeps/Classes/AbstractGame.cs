@@ -6,8 +6,8 @@ namespace AtomicSheeps.Classes
 {
     abstract class AbstractGame
     {
-        public static RenderWindow win;
-        protected static GameTime gameTime;
+        protected static RenderWindow win;
+        public static GameTime gameTime { get; protected set; }
 
         /// <summary>
         /// creates a game

@@ -12,6 +12,7 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
     static class EnemyHandler
     {
         public static List<AbstractEnemy> Enemies { get; private set; }
+        static List<AbstractEnemy> DrawList;
 
         static TimeSpan delay = new TimeSpan(0,0,0,0,100);
         static TimeSpan nextEnemy;
@@ -36,6 +37,7 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
 
             Scissor,
             Mob,
+            Ninja,
 
             Count
         }
@@ -43,6 +45,7 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
         public static void Initialize()
         {
             Enemies = new List<AbstractEnemy>();
+            DrawList = new List<AbstractEnemy>();
             nextEnemy = new TimeSpan(0, 0, 10);
             AbstractEnemy e = new Scissor(InGame.Level);
             WaveSize = e.WaveSize;
@@ -53,6 +56,21 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
         public static void Add(AbstractEnemy e)
         {
             Enemies.Add(e);
+            DrawList.Add(e);
+        }
+
+        static void RemoveAt(int i)
+        {
+            AbstractEnemy e = Enemies[i];
+            Enemies.RemoveAt(i);
+            for(int j = 0; j < DrawList.Count; ++j)
+            {
+                if (DrawList[j] == e)
+                {
+                    DrawList.RemoveAt(j);
+                    break;
+                }
+            }
         }
 
         public static void Draw(RenderWindow win)
@@ -88,7 +106,7 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
 
         public static void Update(GameTime gTime)
         {
-            Enemies.Sort(C);
+            DrawList.Sort(C);
             if (SpawnNextWave)
                 SpawnWave(gTime);
 
@@ -99,7 +117,7 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
                 WaveType = (EEnemy)new Random().Next((int)EEnemy.Count);
                 Type t = typeof(AbstractEnemy).Assembly.GetType("AtomicSheeps.Classes.GameObjects.Enemies." + WaveType.ToString().Split('.').Last());
                 AbstractEnemy e = (AbstractEnemy)Activator.CreateInstance(t, InGame.Level);
-                WaveSize = e.WaveSize;
+                WaveSize = e.WaveSize * ((int)gTime.TotalTime.TotalMinutes + 1);
                 delay = new TimeSpan(0, 0, 0, 0, e.TimeDelayMS);
                 e.Kill();
             }
@@ -108,7 +126,7 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
             {
                 if (!Enemies[i].IsAlive)
                 {
-                    Enemies.RemoveAt(i);
+                    RemoveAt(i);
                     --i;
                 }
                 else

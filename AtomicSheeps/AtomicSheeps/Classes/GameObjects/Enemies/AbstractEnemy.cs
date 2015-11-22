@@ -20,7 +20,8 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
         public Vec2f Size { get { return new Vec2f(sprite.Texture.Size.X, sprite.Texture.Size.Y) * (Vec2f)sprite.Scale; } }
         public bool IsAlive { get; protected set; }
         public float Life { get; protected set; }
-        public int WaveSize { get { return (int)(100 * 1 / Life); } }
+        int maxSpawn = 100;
+        public int WaveSize { get { return (int)(maxSpawn * 1 / Life); } }
         public int TimeDelayMS { get { return (int)(100 * 1 / MovementSpeed); } }
         float MaxLife;
         protected float MovementSpeed;
@@ -36,6 +37,8 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
         public AbstractEnemy(MapFolder.Map m) : base()
         {
             LoadStats();
+
+            Life *= (int)(AbstractGame.gameTime.TotalTime.TotalMinutes + 1);
 
             AnimationSteps = TextureList.Count / 2;
             AnimationRate = 1000 / AnimationSteps;
@@ -72,6 +75,8 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
 
         public void Update(GameTime gTime)
         {
+            maxSpawn = 100 * (int)(gTime.TotalTime.TotalMinutes + 1);
+
             if (IsAlive)
             {
                 Animate(gTime);
