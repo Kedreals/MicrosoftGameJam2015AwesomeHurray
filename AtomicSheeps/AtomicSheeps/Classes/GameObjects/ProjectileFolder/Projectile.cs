@@ -17,8 +17,6 @@ namespace AtomicSheeps.Classes.GameObjects.ProjectileFolder
         Vec2f TargetPosition;
         float MovementSpeed = 0.5f;
 
-        float Epsilon = 0.0625f;
-
         public bool IsAlive { get; private set; }
 
         public Projectile(Vec2f startPos, AbstractEnemy target, float d, string TexturePath)
@@ -46,7 +44,7 @@ namespace AtomicSheeps.Classes.GameObjects.ProjectileFolder
 
             sprite.Position = (Vec2f)sprite.Position + (TargetPosition - (Vec2f)sprite.Position).GetNormalized() * MovementSpeed * t.EllapsedTime.Milliseconds;
 
-            if(TargetPosition.Distance(sprite.Position)<=Epsilon)
+            if(TargetPosition.Distance(sprite.Position)<=Help.Epsilon)
             {
                 Target.DoDamage(Damage);
                 IsAlive = false;

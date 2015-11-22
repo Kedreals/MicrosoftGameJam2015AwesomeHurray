@@ -74,6 +74,7 @@
     <Compile Include="Core\Controlable.cs" />
     <Compile Include="Core\Controls.cs" />
     <Compile Include="Core\GameTime.cs" />
+    <Compile Include="Core\Help.cs" />
     <Compile Include="Core\KeyboardControler.cs" />
     <Compile Include="Core\MouseControler.cs" />
     <Compile Include="Core\PathException.cs" />

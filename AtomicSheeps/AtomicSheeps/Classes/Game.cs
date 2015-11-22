@@ -60,6 +60,7 @@ namespace AtomicSheeps.Classes
 
         public override void Update(GameTime gameTime)
         {
+            Help.Update(gameTime);
             MouseControler.Update();
             KeyboardControler.Update();
 

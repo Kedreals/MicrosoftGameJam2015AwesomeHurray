@@ -23,7 +23,6 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
         float MaxLife;
         protected float MovementSpeed;
         int VertexIndex;
-        float Epsilon = 0.0625f;
         bool leftMovement;
         int i = 0;
         int AnimationSteps;
@@ -75,7 +74,7 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
             LifeBar.Scale = new Vec2f(Life / MaxLife, 1);
             LifeBar.Position = (Vec2f)sprite.Position + new Vec2f(0, LifeBar.Texture.Size.Y);
 
-            if (Position.Distance(Verticies[VertexIndex]) < Epsilon)
+            if (Position.Distance(Verticies[VertexIndex]) < Help.Epsilon)
                 VertexIndex++;
             sprite.Position = Position + (Verticies[VertexIndex] - Position).GetNormalized() * MovementSpeed * gTime.EllapsedTime.Milliseconds;
 
