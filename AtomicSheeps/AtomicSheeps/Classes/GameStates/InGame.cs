@@ -22,6 +22,7 @@ namespace AtomicSheeps.Classes.GameStates
         AbstractTower testTower;
         AbstractTower schafGroßTower;
         AbstractTower LastTower;
+        public static int ExistingGameObjects = 0;
 
         Font font;
         Text txt;
@@ -129,6 +130,8 @@ namespace AtomicSheeps.Classes.GameStates
 
         public EGameStates Update(GameTime time)
         {
+            Console.WriteLine("Existing GameObject Count: " + ExistingGameObjects);
+
             try
             {
                 if(time.TotalTime.TotalSeconds%4 >= 0 && time.TotalTime.TotalSeconds%4 <= 0.1)

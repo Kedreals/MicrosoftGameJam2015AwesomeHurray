@@ -87,7 +87,7 @@ namespace AtomicSheeps.Core
         public static void Initialize(RenderWindow win)
         {
             window = win;
-            DebugInitialize();
+            //DebugInitialize();
 
             isPressed = new bool[(int)MouseButton.Count];
             for (int i = 0; i < isPressed.Length; ++i)
