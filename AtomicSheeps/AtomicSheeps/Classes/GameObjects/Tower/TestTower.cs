@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SFML.Window;
 using AtomicSheeps.Core;
 using SFML.Graphics;
 
@@ -23,7 +18,6 @@ namespace AtomicSheeps.Classes.GameObjects.Tower
             Cooldown = new TimeSpan(0,0,2);
             Range = 96;
             Costs = 5;
-            sprite.Position = new Vec2f(100, 100);
         }
     }
 }

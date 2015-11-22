@@ -5,6 +5,7 @@ using SFML.Audio;
 using AtomicSheeps.Classes.GameObjects.Enemies;
 using System;
 using AtomicSheeps.Classes.GameObjects.Tower;
+using AtomicSheeps.Classes.GameObjects.ProjectileFolder;
 
 namespace AtomicSheeps.Classes.GameStates
 {
@@ -12,26 +13,78 @@ namespace AtomicSheeps.Classes.GameStates
     {
         public static Map Level { get; private set; }
         Sound BackgroundMusic;
+        Sprite Store;
+        Sprite Infobox;
+        Sprite TestTower;
+        AbstractTower LastTower;
+        Font font;
 
         public void Draw(RenderWindow window)
         {
             Level.Draw(window);
 
+            window.Draw(Infobox);
+            for (int i = 0; i < 25; ++i)
+            {
+                Store.Position = new Vec2f(128 + i % 18 * 64, (Game.WindowSize.Y - 192) + (i < 18 ? 0 : 1) * 64);
+                window.Draw(Store);
+            }
+
+            window.Draw(TestTower);
+
             EnemyHandler.Draw(window);
             TowerHandler.Draw(window);
+            ProjectileHandler.Draw(window);
+        }
+
+        public void OnButtonPress(object sender, MouseButtonEventArgs e)
+        {
+            if (MouseControler.MouseIn(TestTower))
+            {
+                new TestTower();
+                TowerHandler.Towers[TowerHandler.Towers.Count - 1].Selected = true;
+            }
+        }
+        public void OnButtonRelease(object sender, MouseButtonEventArgs e)
+        {
+            if (TowerHandler.Towers.Count != 0)
+            {
+                LastTower.Selected = false;
+            
+                try
+                {
+                    LastTower.sprite.Position = Level.GetValidPosition(LastTower.Position + new Vec2f((LastTower.sprite.Texture.Size.X * LastTower.sprite.Scale.X) / 2,
+                        (LastTower.sprite.Texture.Size.Y * LastTower.sprite.Scale.Y) / 2));
+                }
+                catch (PathException)
+                {
+                    LastTower.IsAlive = false;
+                }
+            }
         }
 
         public void Initialize()
-        {            
+        {
+            MouseControler.ButtonPressed += OnButtonPress;
+            MouseControler.ButtonReleased += OnButtonRelease;
             EnemyHandler.Initialize();
             TowerHandler.Initialize();
-            new TestEnemy(Level);
-            new TestTower();
+            ProjectileHandler.Initialize();
+            new Scissor(Level);
         }
 
         public void LoadContent()
         {
             Level = new Map(new System.Drawing.Bitmap("Assets/Bitmap-Levels/Level1.bmp"));
+            Store = new Sprite(new Texture("Assets/Textures/Raster.png"));
+            Infobox = new Sprite(new Texture("Assets/Textures/Infotafel.png"));
+            Infobox.Position = new Vec2f(0, Game.WindowSize.Y - 192);
+
+            TestTower = new Sprite(new Texture("Assets/Textures/SchafVerstrahlt.png"));
+            TestTower.Position = new Vec2f(128, Game.WindowSize.Y - 192);
+
+            font = new Font("Assets/Fonts/dada-latinttf.ttf");
+            
             BackgroundMusic = new Sound(new SoundBuffer("Assets/Sounds/Farm-SoundBible.com-1720780826.wav"));
             BackgroundMusic.Loop = true;
             BackgroundMusic.Volume = 100;
@@ -44,6 +97,12 @@ namespace AtomicSheeps.Classes.GameStates
             {
                 EnemyHandler.Update(time);
                 TowerHandler.Update(time);
+                ProjectileHandler.Update(time);
+                if (TowerHandler.Towers.Count != 0)
+                {
+                    LastTower = TowerHandler.Towers[TowerHandler.Towers.Count - 1];
+                }
+
             }
             catch (ArgumentOutOfRangeException)
             {

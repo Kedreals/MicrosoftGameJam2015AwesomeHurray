@@ -9,7 +9,7 @@ namespace AtomicSheeps.Classes
     class Game : AbstractGame
     {
         static uint WindowSizeX = 1280;
-        static uint WindowSizeY = 768;
+        static uint WindowSizeY = 960;
 
         public static Vec2f WindowSize { get { return new Vec2f(win.Size.X, win.Size.Y); } }
 
