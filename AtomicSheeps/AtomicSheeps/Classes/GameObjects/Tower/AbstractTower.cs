@@ -15,6 +15,7 @@ namespace AtomicSheeps.Classes.GameObjects.Tower
         public TimeSpan Cooldown { get; protected set; }
         public bool Selected { get; set; }
         public bool IsAlive { get; set; }
+        public bool Activated { get; set; }
         TimeSpan timeSpan;
 
         CircleShape c;
@@ -26,6 +27,7 @@ namespace AtomicSheeps.Classes.GameObjects.Tower
             timeSpan = new TimeSpan();
 
             IsAlive = true;
+            Activated = false;
 
             c = new CircleShape(Range);
             Color col = Color.Red;
@@ -57,7 +59,9 @@ namespace AtomicSheeps.Classes.GameObjects.Tower
 
         public void Update(GameTime gTime)
         {
-            Shooting(gTime);
+            if (Activated)
+                Shooting(gTime);
+
             if(Selected)
             {
                 sprite.Position = MouseControler.MousePosition - new Vec2f((sprite.Texture.Size.X * sprite.Scale.X)/2, (sprite.Texture.Size.Y * sprite.Scale.Y) / 2);
