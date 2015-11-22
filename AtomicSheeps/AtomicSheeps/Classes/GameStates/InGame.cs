@@ -6,6 +6,7 @@ using AtomicSheeps.Classes.GameObjects.Enemies;
 using System;
 using AtomicSheeps.Classes.GameObjects.Tower;
 using System.Reflection;
+using AtomicSheeps.Classes.GameObjects.Projectile;
 
 namespace AtomicSheeps.Classes.GameStates
 {
@@ -33,6 +34,7 @@ namespace AtomicSheeps.Classes.GameStates
 
             EnemyHandler.Draw(window);
             TowerHandler.Draw(window);
+            ProjectileHandler.Draw(window);
         }
 
         public void OnButtonPress(object sender, MouseButtonEventArgs e)
@@ -67,6 +69,7 @@ namespace AtomicSheeps.Classes.GameStates
             MouseControler.ButtonReleased += OnButtonRelease;
             EnemyHandler.Initialize();
             TowerHandler.Initialize();
+            ProjectileHandler.Initialize();
             new Scissor(Level);
         }
 
@@ -92,7 +95,7 @@ namespace AtomicSheeps.Classes.GameStates
             {
                 EnemyHandler.Update(time);
                 TowerHandler.Update(time);
-
+                ProjectileHandler.Update(time);
                 if (TowerHandler.Towers.Count != 0)
                 {
                     LastTower = TowerHandler.Towers[TowerHandler.Towers.Count - 1];
