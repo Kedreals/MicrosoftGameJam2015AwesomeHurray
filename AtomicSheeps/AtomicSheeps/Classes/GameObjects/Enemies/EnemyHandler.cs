@@ -20,6 +20,15 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
         static int WaveSize;
 
         static EEnemy WaveType = EEnemy.Scissor;
+        static EComparer C = new EComparer();
+
+        class EComparer : Comparer<AbstractEnemy>
+        {
+            public override int Compare(AbstractEnemy x, AbstractEnemy y)
+            {
+                return (int)(x.Position.Y - y.Position.Y);
+            }
+        }
 
         enum EEnemy
         {
@@ -35,7 +44,10 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
         {
             Enemies = new List<AbstractEnemy>();
             nextEnemy = new TimeSpan(0, 0, 10);
-            WaveSize = 10;
+            AbstractEnemy e = new Scissor(InGame.Level);
+            WaveSize = e.WaveSize;
+            delay = new TimeSpan(0, 0, 0, 0, e.TimeDelayMS);
+            e.Kill();
         }
 
         public static void Add(AbstractEnemy e)
@@ -45,9 +57,9 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
 
         public static void Draw(RenderWindow win)
         {
-            for (int i = Enemies.Count - 1; i >= 0; --i)
-                if (Enemies[i] != null)
-                    Enemies[i].Draw(win);
+            foreach (AbstractEnemy e in Enemies)
+                if (e != null)
+                    e.Draw(win);
         }
 
         static void SpawnWave(GameTime t)
@@ -76,6 +88,7 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
 
         public static void Update(GameTime gTime)
         {
+            Enemies.Sort(C);
             if (SpawnNextWave)
                 SpawnWave(gTime);
 
@@ -84,7 +97,11 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
                 nextEnemy = gTime.TotalTime + new TimeSpan(0, 0, 10);
                 SpawnNextWave = true;
                 WaveType = (EEnemy)new Random().Next((int)EEnemy.Count);
-                WaveSize = (int)WaveType + ((int)WaveType + 1 + gTime.TotalTime.Minutes) * 10;
+                Type t = typeof(AbstractEnemy).Assembly.GetType("AtomicSheeps.Classes.GameObjects.Enemies." + WaveType.ToString().Split('.').Last());
+                AbstractEnemy e = (AbstractEnemy)Activator.CreateInstance(t, InGame.Level);
+                WaveSize = e.WaveSize;
+                delay = new TimeSpan(0, 0, 0, 0, e.TimeDelayMS);
+                e.Kill();
             }
 
             for(int i = 0; i<Enemies.Count; ++i)
@@ -93,7 +110,6 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
                 {
                     Enemies.RemoveAt(i);
                     --i;
-                    InGame.Money += 10;
                 }
                 else
                     Enemies[i].Update(gTime);

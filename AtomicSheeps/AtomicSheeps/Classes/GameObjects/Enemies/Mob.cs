@@ -23,6 +23,7 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
             MovementSpeed = 0.05f;
             sprite = new Sprite(TextureList[0]);
             Life = 100;
+            Money = 25;
         }
     }
 }
