@@ -19,12 +19,15 @@ namespace AtomicSheeps.Classes.GameStates
         Sprite TestTower;
         AbstractTower LastTower;
         Font font;
+        Text txt;
 
         public void Draw(RenderWindow window)
         {
             Level.Draw(window);
 
             window.Draw(Infobox);
+            window.Draw(txt);
+
             for (int i = 0; i < 25; ++i)
             {
                 Store.Position = new Vec2f(128 + i % 18 * 64, (Game.WindowSize.Y - 192) + (i < 18 ? 0 : 1) * 64);
@@ -84,7 +87,12 @@ namespace AtomicSheeps.Classes.GameStates
             TestTower = new Sprite(new Texture("Assets/Textures/SchafVerstrahlt.png"));
             TestTower.Position = new Vec2f(128, Game.WindowSize.Y - 192);
 
-            font = new Font("Assets/Fonts/dada-latinttf.ttf");
+            font = new Font("Assets/Fonts/data-latin.ttf");
+
+            txt = new Text("", font, 10);
+            txt.Position = new Vec2f(Infobox.Position.X + 10, Infobox.Position.Y + 10);
+
+            txt.DisplayedString = LastTower.Damage.ToString() + LastTower.Range.ToString() + LastTower.Costs.ToString();
             
             BackgroundMusic = new Sound(new SoundBuffer("Assets/Sounds/Farm-SoundBible.com-1720780826.wav"));
             BackgroundMusic.Loop = true;
