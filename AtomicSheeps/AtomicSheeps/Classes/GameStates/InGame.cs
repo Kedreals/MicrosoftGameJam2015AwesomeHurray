@@ -37,9 +37,9 @@ namespace AtomicSheeps.Classes.GameStates
             window.Draw(txt);
             window.Draw(MoneyTxt);
 
-            for (int i = 0; i < 25; ++i)
+            for (int i = 0; i < 15; ++i)
             {
-                Store.Position = new Vec2f(128 + i % 18 * 64, (Game.WindowSize.Y - 192) + (i < 18 ? 0 : 1) * 64);
+                Store.Position = new Vec2f(128 + i % 5 * 64, (Game.WindowSize.Y - 192) + (i < 5 ? 0 : 1) * 64);
                 window.Draw(Store);
             }
 
