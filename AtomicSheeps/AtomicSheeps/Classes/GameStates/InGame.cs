@@ -23,6 +23,7 @@ namespace AtomicSheeps.Classes.GameStates
         AbstractTower schafGroßTower;
         AbstractTower rainbowTower;
         AbstractTower sniperTower;
+        AbstractTower chainsawSheep;
         AbstractTower CurrentTower;
         public static int ExistingGameObjects = 0;
 
@@ -82,6 +83,14 @@ namespace AtomicSheeps.Classes.GameStates
                 Money -= sniperTower.Costs;
                 CurrentTower = TowerHandler.Towers[TowerHandler.Towers.Count - 1];
             }
+
+            if (MouseControler.MouseIn(chainsawSheep.sprite) && Money >= chainsawSheep.Costs)
+            {
+                new ChainsawSheep();
+                TowerHandler.Towers[TowerHandler.Towers.Count - 1].Selected = true;
+                Money -= chainsawSheep.Costs;
+                CurrentTower = TowerHandler.Towers[TowerHandler.Towers.Count - 1];
+            }
         }
         public void OnButtonRelease(object sender, MouseButtonEventArgs e)
         {
@@ -119,6 +128,7 @@ namespace AtomicSheeps.Classes.GameStates
             StoreList.Add(schafGroßTower = new SchafGroßTower());
             StoreList.Add(rainbowTower = new RainbowSheep());
             StoreList.Add(sniperTower = new SheepSniper());
+            StoreList.Add(chainsawSheep = new ChainsawSheep());
         }
 
         public void DisplayTowerStats()
@@ -128,7 +138,7 @@ namespace AtomicSheeps.Classes.GameStates
             {
                 if (MouseControler.MouseIn(t.sprite))
                 {
-                    txt.DisplayedString = "Damage: " + t.Damage.ToString() + "\n" + "Range: " + t.Range.ToString() + "\n" + "Costs: " + t.Costs.ToString();
+                    txt.DisplayedString = "Damage: " + t.Damage.ToString() + "\n" + "Range: " + t.Range.ToString() + "\n" + "Costs: " + t.Costs.ToString() + "\n" + "Cd (sec): " + t.Cooldown.TotalSeconds.ToString();
                 }
             }
         }
