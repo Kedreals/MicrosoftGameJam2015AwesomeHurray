@@ -51,7 +51,7 @@ namespace AtomicSheeps.Classes.GameObjects.Tower
             {
                 currentDistance = this.Position.Distance(enemy.Position);
                                 
-                if (currentDistance <= Range && timeSpan.CompareTo(gTime.TotalTime) < 0)
+                if (!Selected && currentDistance <= Range && timeSpan.CompareTo(gTime.TotalTime) < 0)
                 {
                     enemy.DoDamage(Damage);
                     timeSpan = gTime.TotalTime.Add(Cooldown);

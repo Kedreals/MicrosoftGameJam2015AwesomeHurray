@@ -12,11 +12,18 @@ namespace AtomicSheeps.Classes.GameStates
     {
         public static Map Level { get; private set; }
         Sound BackgroundMusic;
+        Sprite Store;
 
         public void Draw(RenderWindow window)
         {
             Level.Draw(window);
 
+            for (int i = 0; i < 25; ++i)
+            {
+                Store.Position = new Vec2f(128 + i % 18 * 64, (Game.WindowSize.Y - 192) + (i<18?0:1) * 64);
+                window.Draw(Store);
+            }
+            
             EnemyHandler.Draw(window);
             TowerHandler.Draw(window);
         }
@@ -32,6 +39,8 @@ namespace AtomicSheeps.Classes.GameStates
         public void LoadContent()
         {
             Level = new Map(new System.Drawing.Bitmap("Assets/Bitmap-Levels/Level1.bmp"));
+            Store = new Sprite(new Texture("Assets/Textures/Raster.png"));
+            //Store.Position = new Vec2f(64*2, Game.WindowSize.Y - 3f * 64f);
             BackgroundMusic = new Sound(new SoundBuffer("Assets/Sounds/Farm-SoundBible.com-1720780826.wav"));
             BackgroundMusic.Loop = true;
             BackgroundMusic.Volume = 100;
