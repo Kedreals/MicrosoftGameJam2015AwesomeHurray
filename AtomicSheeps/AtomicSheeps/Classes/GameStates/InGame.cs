@@ -12,7 +12,7 @@ namespace AtomicSheeps.Classes.GameStates
 {
     class InGame : IGameState
     {
-        public static int Money = 0;
+        public static int Money = 20;
         Text MoneyTxt;
         public static Map Level { get; private set; }
         Sound BackgroundMusic;
@@ -61,10 +61,11 @@ namespace AtomicSheeps.Classes.GameStates
         }
         public void OnButtonRelease(object sender, MouseButtonEventArgs e)
         {
-            if (TowerHandler.Towers.Count != 0)
+            if (TowerHandler.Towers.Count > 2)
             {
                 LastTower.Selected = false;
-            
+                LastTower.Activated = true;
+
                 try
                 {
                     LastTower.sprite.Position = Level.GetValidPosition(LastTower.Position + new Vec2f((LastTower.sprite.Texture.Size.X * LastTower.sprite.Scale.X) / 2,
@@ -130,13 +131,13 @@ namespace AtomicSheeps.Classes.GameStates
         {
             try
             {
-                if(time.EllapsedTime.TotalSeconds%4 == 0)
+                if(time.TotalTime.TotalSeconds%4 >= 0 && time.TotalTime.TotalSeconds%4 <= 0.1)
                     Money++;
                 EnemyHandler.Update(time);
                 TowerHandler.Update(time);
                 ProjectileHandler.Update(time);
 
-                if (TowerHandler.Towers.Count != 0)
+                if (TowerHandler.Towers.Count > 2)
                 {
                     LastTower = TowerHandler.Towers[TowerHandler.Towers.Count - 1];
                 }
