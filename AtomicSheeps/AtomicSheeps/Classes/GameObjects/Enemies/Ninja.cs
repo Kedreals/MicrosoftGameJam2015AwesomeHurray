@@ -23,6 +23,14 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
             TextureList.Add(new Texture("Assets/Textures/Ninja2_mirror.png"));
             TextureList.Add(new Texture("Assets/Textures/Ninja3_mirror.png"));
             TextureList.Add(new Texture("Assets/Textures/Ninja4_mirror.png"));
+            TextureList.Add(new Texture("Assets/Textures/NinjaHinten1.png"));
+            TextureList.Add(new Texture("Assets/Textures/NinjaHinten2.png"));
+            TextureList.Add(new Texture("Assets/Textures/NinjaHinten3.png"));
+            TextureList.Add(new Texture("Assets/Textures/NinjaHinten4.png"));
+            TextureList.Add(new Texture("Assets/Textures/NinjaVorne1.png"));
+            TextureList.Add(new Texture("Assets/Textures/NinjaVorne2.png"));
+            TextureList.Add(new Texture("Assets/Textures/NinjaVorne3.png"));
+            TextureList.Add(new Texture("Assets/Textures/NinjaVorne4.png"));
 
             MovementSpeed = 0.25f;
             sprite = new Sprite(TextureList[0]);

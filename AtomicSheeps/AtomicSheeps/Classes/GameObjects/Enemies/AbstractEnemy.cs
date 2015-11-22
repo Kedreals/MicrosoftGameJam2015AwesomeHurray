@@ -26,7 +26,7 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
         float MaxLife;
         protected float MovementSpeed;
         int VertexIndex;
-        bool leftMovement;
+        int Movement = 0;
         int i = 0;
         int AnimationSteps;
         int AnimationRate;
@@ -41,7 +41,7 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
             Life *= (int)(AbstractGame.gameTime.TotalTime.TotalMinutes + 1);
             maxSpawn *= (int)(AbstractGame.gameTime.TotalTime.TotalMinutes + 1);
 
-            AnimationSteps = TextureList.Count / 2;
+            AnimationSteps = TextureList.Count / 4;
             AnimationRate = 1000 / AnimationSteps;
 
             IsAlive = true;
@@ -67,11 +67,7 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
         {
             i = (t.TotalTime.Milliseconds / AnimationRate) % AnimationSteps;
 
-            if (leftMovement)
-                sprite.Texture = TextureList[i + AnimationSteps];
-            else
-                sprite.Texture = TextureList[i];
-            
+            sprite.Texture = TextureList[i + Movement * AnimationSteps];
         }
 
         public void Update(GameTime gTime)
@@ -87,7 +83,19 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
                     VertexIndex++;
                 sprite.Position = Position + (Verticies[VertexIndex] - Position).GetNormalized() * MovementSpeed * gTime.EllapsedTime.Milliseconds;
 
-                leftMovement = (Verticies[VertexIndex] - Position).X < 0;
+                float x = (Verticies[VertexIndex] - Position).X;
+                float y = (Verticies[VertexIndex] - Position).Y;
+
+                Vec2i v = new Vec2i((Math.Abs(x) >= 1) ? (int)x / (int)Math.Abs(x) : 0, (Math.Abs(y) >= 1) ? (int)y / (int)Math.Abs(y) : 0);
+
+                if (v == new Vec2i(1, 0))
+                    Movement = 0;
+                if (v == new Vec2i(-1, 0))
+                    Movement = 1;
+                if (v == new Vec2i(0, -1))
+                    Movement = 2;
+                if (v == new Vec2i(0, 1))
+                    Movement = 3;
 
                 if (Life <= 0)
                 {

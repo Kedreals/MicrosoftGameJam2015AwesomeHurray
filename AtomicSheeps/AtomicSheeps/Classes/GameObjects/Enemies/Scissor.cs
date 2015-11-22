@@ -23,6 +23,10 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
             TextureList.Add(new Texture("Assets/Textures/Figur2_mirror.png"));
             TextureList.Add(new Texture("Assets/Textures/Figur1.png"));
             TextureList.Add(new Texture("Assets/Textures/Figur2.png"));
+            TextureList.Add(new Texture("Assets/Textures/FigurHinten1.png"));
+            TextureList.Add(new Texture("Assets/Textures/FigurHinten2.png"));
+            TextureList.Add(new Texture("Assets/Textures/FigurVorn1.png"));
+            TextureList.Add(new Texture("Assets/Textures/FigurVorn2.png"));
 
             MovementSpeed = 0.1f;
             sprite = new Sprite(TextureList[0]);

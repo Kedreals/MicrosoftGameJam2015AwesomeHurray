@@ -38,6 +38,7 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
             Scissor,
             Mob,
             Ninja,
+            HarvestingMachine,
 
             Count
         }
@@ -114,7 +115,7 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
             {
                 nextEnemy = gTime.TotalTime + new TimeSpan(0, 0, 10);
                 SpawnNextWave = true;
-                WaveType = (EEnemy)new Random().Next((int)EEnemy.Count);
+                WaveType = (EEnemy)((int)(WaveType + 1) % (int)EEnemy.Count);
                 AbstractEnemy e = (AbstractEnemy)Activator.CreateInstance(typeof(AbstractEnemy).Assembly.GetType("AtomicSheeps.Classes.GameObjects.Enemies." + WaveType.ToString().Split('.').Last()), InGame.Level);
                 WaveSize = e.WaveSize * ((int)gTime.TotalTime.TotalMinutes + 1);
                 delay = new TimeSpan(0, 0, 0, 0, e.TimeDelayMS);
