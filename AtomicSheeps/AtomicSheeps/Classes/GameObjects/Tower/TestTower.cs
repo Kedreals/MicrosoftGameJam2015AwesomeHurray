@@ -14,8 +14,8 @@ namespace AtomicSheeps.Classes.GameObjects.Tower
         protected override void LoadStats()
         {
             sprite = new Sprite(new Texture("Assets/Textures/SchafVerstrahlt.png"));
-            Damage = 2;
-            Cooldown = new TimeSpan(0,0,2);
+            Damage = 10;
+            Cooldown = new TimeSpan(0,0,1);
             Range = 96;
             Costs = 5;
         }

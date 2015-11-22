@@ -148,8 +148,16 @@ namespace AtomicSheeps.Classes.MapFolder
         public Vec2f GetValidPosition(Vec2f pos)
         {
             Vec2i tilePos = (pos / TileSize);
-            if (Tiles[tilePos.X, tilePos.Y].IsPath)
+
+            try
+            {
+                if (Tiles[tilePos.X, tilePos.Y].IsPath)
+                    throw new PathException();
+            }
+            catch (IndexOutOfRangeException)
+            {
                 throw new PathException();
+            }
 
             return (Vec2f)tilePos * TileSize;
         }

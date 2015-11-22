@@ -70,7 +70,6 @@ namespace AtomicSheeps.Classes.GameStates
             EnemyHandler.Initialize();
             TowerHandler.Initialize();
             ProjectileHandler.Initialize();
-            new Scissor(Level);
         }
 
         public void LoadContent()
@@ -83,7 +82,7 @@ namespace AtomicSheeps.Classes.GameStates
             TestTower = new Sprite(new Texture("Assets/Textures/SchafVerstrahlt.png"));
             TestTower.Position = new Vec2f(128, Game.WindowSize.Y - 192);
 
-            font = new Font("Assets/Fonts/dada-latinttf.ttf");
+            font = new Font("Assets/Fonts/data-latin.ttf");
             
             BackgroundMusic = new Sound(new SoundBuffer("Assets/Sounds/Farm-SoundBible.com-1720780826.wav"));
             BackgroundMusic.Loop = true;

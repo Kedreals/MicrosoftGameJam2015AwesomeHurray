@@ -1,4 +1,5 @@
-﻿using AtomicSheeps.Core;
+﻿using AtomicSheeps.Classes.GameStates;
+using AtomicSheeps.Core;
 using SFML.Graphics;
 using System;
 using System.Collections.Generic;
@@ -12,9 +13,13 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
     {
         public static List<AbstractEnemy> Enemies { get; private set; }
 
+        static int delay = 100;
+        static TimeSpan lastEnemy = new TimeSpan();
+
         public static void Initialize()
         {
             Enemies = new List<AbstractEnemy>();
+            
         }
 
         public static void Add(AbstractEnemy e)
@@ -31,6 +36,14 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
 
         public static void Update(GameTime gTime)
         {
+            if (gTime.TotalTime.Seconds > 10)
+            {
+                if ((gTime.TotalTime - lastEnemy).Milliseconds > delay)
+                {
+                    new Scissor(InGame.Level);
+                    lastEnemy = gTime.TotalTime;
+                }
+            }
             for(int i = 0; i<Enemies.Count; ++i)
             {
                 if (!Enemies[i].IsAlive)

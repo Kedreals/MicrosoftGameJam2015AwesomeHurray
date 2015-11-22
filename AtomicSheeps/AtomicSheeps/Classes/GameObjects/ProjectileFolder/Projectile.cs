@@ -39,6 +39,9 @@ namespace AtomicSheeps.Classes.GameObjects.ProjectileFolder
 
         public void Update(GameTime t)
         {
+            if (!Target.IsAlive)
+                IsAlive = false;
+
             TargetPosition = (Target.Position + Target.Size / 2 - new Vec2f(sprite.Texture.Size.X, sprite.Texture.Size.Y) / 2);
 
             sprite.Position = (Vec2f)sprite.Position + (TargetPosition - (Vec2f)sprite.Position).GetNormalized() * MovementSpeed * t.EllapsedTime.Milliseconds;
