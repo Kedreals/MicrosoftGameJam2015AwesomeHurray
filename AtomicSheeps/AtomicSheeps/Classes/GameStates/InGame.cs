@@ -38,7 +38,7 @@ namespace AtomicSheeps.Classes.GameStates
             EnemyHandler.Initialize();
             TowerHandler.Initialize();
             new TestEnemy(Level);
-            new TestTower();
+            //new TestTower();
         }
 
         public void LoadContent()

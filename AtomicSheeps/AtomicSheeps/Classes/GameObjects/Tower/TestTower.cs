@@ -23,7 +23,7 @@ namespace AtomicSheeps.Classes.GameObjects.Tower
             Cooldown = new TimeSpan(0,0,2);
             Range = 96;
             Costs = 5;
-            sprite.Position = new Vec2f(100, 100);
+            //sprite.Position = new Vec2f(100, 100);
         }
     }
 }
