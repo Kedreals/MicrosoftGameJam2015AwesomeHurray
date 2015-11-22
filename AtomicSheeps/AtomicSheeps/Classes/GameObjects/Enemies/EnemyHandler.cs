@@ -115,8 +115,7 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
                 nextEnemy = gTime.TotalTime + new TimeSpan(0, 0, 10);
                 SpawnNextWave = true;
                 WaveType = (EEnemy)new Random().Next((int)EEnemy.Count);
-                Type t = typeof(AbstractEnemy).Assembly.GetType("AtomicSheeps.Classes.GameObjects.Enemies." + WaveType.ToString().Split('.').Last());
-                AbstractEnemy e = (AbstractEnemy)Activator.CreateInstance(t, InGame.Level);
+                AbstractEnemy e = (AbstractEnemy)Activator.CreateInstance(typeof(AbstractEnemy).Assembly.GetType("AtomicSheeps.Classes.GameObjects.Enemies." + WaveType.ToString().Split('.').Last()), InGame.Level);
                 WaveSize = e.WaveSize * ((int)gTime.TotalTime.TotalMinutes + 1);
                 delay = new TimeSpan(0, 0, 0, 0, e.TimeDelayMS);
                 e.Kill();
