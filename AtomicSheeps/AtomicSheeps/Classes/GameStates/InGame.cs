@@ -18,10 +18,12 @@ namespace AtomicSheeps.Classes.GameStates
         Sound BackgroundMusic;
         Sprite Store;
         Sprite Infobox;
-        List<AbstractTower> TowersList { get; set; }
+        List<AbstractTower> StoreList { get; set; }
         AbstractTower testTower;
         AbstractTower schafGroßTower;
-        AbstractTower LastTower;
+        AbstractTower rainbowTower;
+        AbstractTower sniperTower;
+        AbstractTower CurrentTower;
         public static int ExistingGameObjects = 0;
 
         Font font;
@@ -35,9 +37,9 @@ namespace AtomicSheeps.Classes.GameStates
             window.Draw(txt);
             window.Draw(MoneyTxt);
 
-            for (int i = 0; i < 25; ++i)
+            for (int i = 0; i < 15; ++i)
             {
-                Store.Position = new Vec2f(128 + i % 18 * 64, (Game.WindowSize.Y - 192) + (i < 18 ? 0 : 1) * 64);
+                Store.Position = new Vec2f(128 + i % 5 * 64, (Game.WindowSize.Y - 192) + (i < 5 ? 0 : 1) * 64);
                 window.Draw(Store);
             }
 
@@ -54,6 +56,7 @@ namespace AtomicSheeps.Classes.GameStates
                 new TestTower();
                 TowerHandler.Towers[TowerHandler.Towers.Count - 1].Selected = true;
                 Money -= testTower.Costs;
+                CurrentTower = TowerHandler.Towers[TowerHandler.Towers.Count - 1];
             }
 
             if (MouseControler.MouseIn(schafGroßTower.sprite) && Money >= schafGroßTower.Costs)
@@ -61,25 +64,44 @@ namespace AtomicSheeps.Classes.GameStates
                 new SchafGroßTower();
                 TowerHandler.Towers[TowerHandler.Towers.Count - 1].Selected = true;
                 Money -= schafGroßTower.Costs;
+                CurrentTower = TowerHandler.Towers[TowerHandler.Towers.Count - 1];
+            }
+
+            if (MouseControler.MouseIn(rainbowTower.sprite) && Money >= rainbowTower.Costs)
+            {
+                new RainbowSheep();
+                TowerHandler.Towers[TowerHandler.Towers.Count - 1].Selected = true;
+                Money -= rainbowTower.Costs;
+                CurrentTower = TowerHandler.Towers[TowerHandler.Towers.Count - 1];
+            }
+
+            if (MouseControler.MouseIn(sniperTower.sprite) && Money >= sniperTower.Costs)
+            {
+                new SheepSniper();
+                TowerHandler.Towers[TowerHandler.Towers.Count - 1].Selected = true;
+                Money -= sniperTower.Costs;
+                CurrentTower = TowerHandler.Towers[TowerHandler.Towers.Count - 1];
             }
         }
         public void OnButtonRelease(object sender, MouseButtonEventArgs e)
         {
-            if (TowerHandler.Towers.Count > 2)
+            if (CurrentTower!=null)
             {
-                LastTower.Selected = false;
-                LastTower.Activated = true;
+                CurrentTower.Selected = false;
+                CurrentTower.Activated = true;
 
                 try
                 {
-                    LastTower.sprite.Position = Level.GetValidPosition(LastTower.Position + new Vec2f((LastTower.sprite.Texture.Size.X * LastTower.sprite.Scale.X) / 2,
-                        (LastTower.sprite.Texture.Size.Y * LastTower.sprite.Scale.Y) / 2));
+                    CurrentTower.sprite.Position = Level.GetValidPosition(CurrentTower.Position + new Vec2f((CurrentTower.sprite.Texture.Size.X * CurrentTower.sprite.Scale.X) / 2,
+                        (CurrentTower.sprite.Texture.Size.Y * CurrentTower.sprite.Scale.Y) / 2));
                 }
                 catch (PathException)
                 {
-                    Money += LastTower.Costs;
-                    LastTower.IsAlive = false;
+                    Money += CurrentTower.Costs;
+                    CurrentTower.IsAlive = false;
                 }
+
+                CurrentTower = null;
             }
         }
 
@@ -92,17 +114,17 @@ namespace AtomicSheeps.Classes.GameStates
             TowerHandler.Initialize();
             ProjectileHandler.Initialize();
 
-            TowersList = new List<AbstractTower>();
-            testTower = new TestTower();
-            schafGroßTower = new SchafGroßTower();
-            TowersList.Add(testTower);
-            TowersList.Add(schafGroßTower);
+            StoreList = new List<AbstractTower>();
+            StoreList.Add(testTower = new TestTower());
+            StoreList.Add(schafGroßTower = new SchafGroßTower());
+            StoreList.Add(rainbowTower = new RainbowSheep());
+            StoreList.Add(sniperTower = new SheepSniper());
         }
 
         public void DisplayTowerStats()
         {
 
-            foreach (AbstractTower t in TowersList)
+            foreach (AbstractTower t in StoreList)
             {
                 if (MouseControler.MouseIn(t.sprite))
                 {
@@ -141,11 +163,6 @@ namespace AtomicSheeps.Classes.GameStates
                 EnemyHandler.Update(time);
                 TowerHandler.Update(time);
                 ProjectileHandler.Update(time);
-
-                if (TowerHandler.Towers.Count > 2)
-                {
-                    LastTower = TowerHandler.Towers[TowerHandler.Towers.Count - 1];
-                }
 
                 DisplayTowerStats();
 

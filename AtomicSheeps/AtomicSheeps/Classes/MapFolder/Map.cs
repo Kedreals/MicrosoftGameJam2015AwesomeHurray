@@ -1,4 +1,5 @@
-﻿using AtomicSheeps.Core;
+﻿using AtomicSheeps.Classes.GameObjects.Tower;
+using AtomicSheeps.Core;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -153,6 +154,12 @@ namespace AtomicSheeps.Classes.MapFolder
             {
                 if (Tiles[tilePos.X, tilePos.Y].IsPath)
                     throw new PathException();
+
+                foreach(AbstractTower t in TowerHandler.Towers)
+                {
+                    if (((Vec2f)tilePos * TileSize) == t.Position)
+                        throw new PathException();
+                }
             }
             catch (IndexOutOfRangeException)
             {
