@@ -53,7 +53,7 @@ namespace AtomicSheeps.Classes.GameObjects.Tower
                                 
                 if (currentDistance <= Range && (timeSpan.Add(Cooldown)).CompareTo(gTime.TotalTime) < 0)
                 {
-                    //enemy.DoDamage(Damage);
+                    enemy.DoDamage(Damage);
                     timeSpan = gTime.TotalTime;
                     break;
                 }

@@ -1,11 +1,7 @@
-﻿using AtomicSheeps.Classes.GameObjects.Enemies;
-using AtomicSheeps.Core;
+﻿using AtomicSheeps.Core;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AtomicSheeps.Classes.MapFolder
 {

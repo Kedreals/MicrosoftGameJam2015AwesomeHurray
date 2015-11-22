@@ -5,6 +5,7 @@ using SFML.Audio;
 using AtomicSheeps.Classes.GameObjects.Enemies;
 using System;
 using AtomicSheeps.Classes.GameObjects.Tower;
+using System.Reflection;
 
 namespace AtomicSheeps.Classes.GameStates
 {
@@ -22,10 +23,10 @@ namespace AtomicSheeps.Classes.GameStates
         }
 
         public void Initialize()
-        {            
+        {
             EnemyHandler.Initialize();
             TowerHandler.Initialize();
-            new TestEnemy(Level);
+            new Scissor(Level);
             new TestTower();
         }
 
