@@ -1,12 +1,8 @@
 ﻿using AtomicSheeps.Classes.GameObjects.Enemies;
-using AtomicSheeps.Classes.GameStates;
 using AtomicSheeps.Core;
 using SFML.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using AtomicSheeps.Classes.GameObjects.ProjectileFolder;
 
 namespace AtomicSheeps.Classes.GameObjects.Tower
 {
@@ -26,7 +22,7 @@ namespace AtomicSheeps.Classes.GameObjects.Tower
         public AbstractTower()
         {
             LoadStats();
-            TowerHandler.Towers.Add(this);
+            TowerHandler.Add(this);
             timeSpan = new TimeSpan();
 
             IsAlive = true;
@@ -51,7 +47,8 @@ namespace AtomicSheeps.Classes.GameObjects.Tower
                                 
                 if (!Selected && currentDistance <= Range && timeSpan.CompareTo(gTime.TotalTime) < 0)
                 {
-                    enemy.DoDamage(Damage);
+                    new Projectile(Position + new Vec2f((sprite.Texture.Size.X * sprite.Scale.X) / 2, (sprite.Texture.Size.Y * sprite.Scale.Y) / 2), 
+                        enemy, Damage, "Assets/Textures/Wollball.png");
                     timeSpan = gTime.TotalTime.Add(Cooldown);
                     break;
                 }

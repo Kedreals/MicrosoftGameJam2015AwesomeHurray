@@ -5,19 +5,24 @@ using SFML.Audio;
 using AtomicSheeps.Classes.GameObjects.Enemies;
 using System;
 using AtomicSheeps.Classes.GameObjects.Tower;
-using System.Reflection;
-using AtomicSheeps.Classes.GameObjects.Projectile;
+using AtomicSheeps.Classes.GameObjects.ProjectileFolder;
+using System.Collections.Generic;
 
 namespace AtomicSheeps.Classes.GameStates
 {
     class InGame : IGameState
     {
+        public static int Money = 0;
+        Text MoneyTxt;
         public static Map Level { get; private set; }
         Sound BackgroundMusic;
         Sprite Store;
         Sprite Infobox;
-        Sprite TestTower;
+        List<AbstractTower> TowersList { get; set; }
+        AbstractTower testTower;
+        AbstractTower schafGroßTower;
         AbstractTower LastTower;
+
         Font font;
         Text txt;
 
@@ -27,14 +32,13 @@ namespace AtomicSheeps.Classes.GameStates
 
             window.Draw(Infobox);
             window.Draw(txt);
+            window.Draw(MoneyTxt);
 
             for (int i = 0; i < 25; ++i)
             {
                 Store.Position = new Vec2f(128 + i % 18 * 64, (Game.WindowSize.Y - 192) + (i < 18 ? 0 : 1) * 64);
                 window.Draw(Store);
             }
-
-            window.Draw(TestTower);
 
             EnemyHandler.Draw(window);
             TowerHandler.Draw(window);
@@ -43,9 +47,15 @@ namespace AtomicSheeps.Classes.GameStates
 
         public void OnButtonPress(object sender, MouseButtonEventArgs e)
         {
-            if (MouseControler.MouseIn(TestTower))
+            if (MouseControler.MouseIn(testTower.sprite))
             {
                 new TestTower();
+                TowerHandler.Towers[TowerHandler.Towers.Count - 1].Selected = true;
+            }
+
+            if (MouseControler.MouseIn(schafGroßTower.sprite))
+            {
+                new SchafGroßTower();
                 TowerHandler.Towers[TowerHandler.Towers.Count - 1].Selected = true;
             }
         }
@@ -71,10 +81,28 @@ namespace AtomicSheeps.Classes.GameStates
         {
             MouseControler.ButtonPressed += OnButtonPress;
             MouseControler.ButtonReleased += OnButtonRelease;
+
             EnemyHandler.Initialize();
             TowerHandler.Initialize();
             ProjectileHandler.Initialize();
-            new Scissor(Level);
+
+            TowersList = new List<AbstractTower>();
+            testTower = new TestTower();
+            schafGroßTower = new SchafGroßTower();
+            TowersList.Add(testTower);
+            TowersList.Add(schafGroßTower);
+        }
+
+        public void DisplayTowerStats()
+        {
+
+            foreach (AbstractTower t in TowersList)
+            {
+                if (MouseControler.MouseIn(t.sprite))
+                {
+                    txt.DisplayedString = "Damage: " + t.Damage.ToString() + "\n" + "Range: " + t.Range.ToString() + "\n" + "Costs: " + t.Costs.ToString();
+                }
+            }
         }
 
         public void LoadContent()
@@ -84,16 +112,14 @@ namespace AtomicSheeps.Classes.GameStates
             Infobox = new Sprite(new Texture("Assets/Textures/Infotafel.png"));
             Infobox.Position = new Vec2f(0, Game.WindowSize.Y - 192);
 
-            TestTower = new Sprite(new Texture("Assets/Textures/SchafVerstrahlt.png"));
-            TestTower.Position = new Vec2f(128, Game.WindowSize.Y - 192);
-
             font = new Font("Assets/Fonts/data-latin.ttf");
 
-            txt = new Text("", font, 10);
-            txt.Position = new Vec2f(Infobox.Position.X + 10, Infobox.Position.Y + 10);
+            txt = new Text("", font, 20);
+            txt.Position = new Vec2f(Infobox.Position.X + 10, Infobox.Position.Y + 30);
 
-            txt.DisplayedString = LastTower.Damage.ToString() + LastTower.Range.ToString() + LastTower.Costs.ToString();
-            
+            MoneyTxt = new Text("", font, 20);
+            MoneyTxt.Position = new Vec2f(Infobox.Position.X + 10, Infobox.Position.Y + 10);
+
             BackgroundMusic = new Sound(new SoundBuffer("Assets/Sounds/Farm-SoundBible.com-1720780826.wav"));
             BackgroundMusic.Loop = true;
             BackgroundMusic.Volume = 100;
@@ -104,14 +130,20 @@ namespace AtomicSheeps.Classes.GameStates
         {
             try
             {
+                if(time.EllapsedTime.TotalSeconds%4 == 0)
+                    Money++;
                 EnemyHandler.Update(time);
                 TowerHandler.Update(time);
                 ProjectileHandler.Update(time);
+
                 if (TowerHandler.Towers.Count != 0)
                 {
                     LastTower = TowerHandler.Towers[TowerHandler.Towers.Count - 1];
                 }
 
+                DisplayTowerStats();
+
+                MoneyTxt.DisplayedString = "Money: " + Money;
             }
             catch (ArgumentOutOfRangeException)
             {

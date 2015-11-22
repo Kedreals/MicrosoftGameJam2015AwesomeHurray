@@ -58,9 +58,10 @@
     <Compile Include="Classes\GameObjects\Enemies\AbstractEnemy.cs" />
     <Compile Include="Classes\GameObjects\Enemies\EnemyHandler.cs" />
     <Compile Include="Classes\GameObjects\Enemies\Scissor.cs" />
-    <Compile Include="Classes\GameObjects\Projectile\Projectile.cs" />
-    <Compile Include="Classes\GameObjects\Projectile\ProjectileHandler.cs" />
+    <Compile Include="Classes\GameObjects\ProjectileFolder\Projectile.cs" />
+    <Compile Include="Classes\GameObjects\ProjectileFolder\ProjectileHandler.cs" />
     <Compile Include="Classes\GameObjects\Tower\AbstractTower.cs" />
+    <Compile Include="Classes\GameObjects\Tower\SchafGroßTower.cs" />
     <Compile Include="Classes\GameObjects\Tower\TestTower.cs" />
     <Compile Include="Classes\GameObjects\Tower\TowerHandler.cs" />
     <Compile Include="Classes\GameStates\GameOver.cs" />
