@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AtomicSheeps.Classes.GameObjects.Enemies
 {
-    abstract class AbstractEnemy
+    abstract class AbstractEnemy : GameObject
     {
         protected Sprite sprite;
 
@@ -30,7 +30,7 @@ namespace AtomicSheeps.Classes.GameObjects.Enemies
 
         List<Vec2f> Verticies;
 
-        public AbstractEnemy(MapFolder.Map m)
+        public AbstractEnemy(MapFolder.Map m) : base()
         {
             LoadStats();
 

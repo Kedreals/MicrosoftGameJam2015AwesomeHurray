@@ -6,7 +6,7 @@ using AtomicSheeps.Classes.GameObjects.ProjectileFolder;
 
 namespace AtomicSheeps.Classes.GameObjects.Tower
 {
-    abstract class AbstractTower
+    abstract class AbstractTower : GameObject
     {
         public Sprite sprite;
         public float Damage { get; protected set; }
@@ -19,7 +19,7 @@ namespace AtomicSheeps.Classes.GameObjects.Tower
 
         CircleShape c;
 
-        public AbstractTower()
+        public AbstractTower() : base()
         {
             LoadStats();
             TowerHandler.Add(this);

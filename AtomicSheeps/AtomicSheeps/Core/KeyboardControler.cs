@@ -59,7 +59,7 @@ namespace AtomicSheeps.Core
         /// </summary>
         public static void Initialize()
         {
-            DebugInitialize();
+            //DebugInitialize();
 
             isPressed = new bool[(int)Keyboard.Key.KeyCount];
             for (int i = 0; i < isPressed.Length; ++i)

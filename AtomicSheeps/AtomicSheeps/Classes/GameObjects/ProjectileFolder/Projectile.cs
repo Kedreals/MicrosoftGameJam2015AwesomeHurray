@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AtomicSheeps.Classes.GameObjects.ProjectileFolder
 {
-    class Projectile
+    class Projectile : GameObject
     {
         Sprite sprite;
         float Damage;
@@ -19,7 +19,7 @@ namespace AtomicSheeps.Classes.GameObjects.ProjectileFolder
 
         public bool IsAlive { get; private set; }
 
-        public Projectile(Vec2f startPos, AbstractEnemy target, float d, string TexturePath)
+        public Projectile(Vec2f startPos, AbstractEnemy target, float d, string TexturePath) : base()
         {
             Target = target;
             IsAlive = true;

@@ -9,7 +9,7 @@ namespace AtomicSheeps.Core
     class Help
     {
         public static float Epsilon { get; private set; }
-        static float baseEpsilon = 0.0625f;
+        static float baseEpsilon = 0.125f;
 
         public static void Update(GameTime t)
         {
