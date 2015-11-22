@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SFML.Window;
 using AtomicSheeps.Core;
+using SFML.Graphics;
 
 namespace AtomicSheeps.Classes.GameObjects.Tower
 {
@@ -17,7 +18,7 @@ namespace AtomicSheeps.Classes.GameObjects.Tower
 
         protected override void LoadStats()
         {
-            sprite = new SFML.Graphics.Sprite(new SFML.Graphics.Texture("Assets/Textures/SchafVerstrahlt.png"));
+            sprite = new Sprite(new Texture("Assets/Textures/SchafVerstrahlt.png"));
             Damage = 2;
             Cooldown = new TimeSpan(0,0,2);
             Range = 96;

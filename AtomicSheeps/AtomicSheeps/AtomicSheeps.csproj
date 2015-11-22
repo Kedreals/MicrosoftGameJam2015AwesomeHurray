@@ -58,6 +58,8 @@
     <Compile Include="Classes\GameObjects\Enemies\AbstractEnemy.cs" />
     <Compile Include="Classes\GameObjects\Enemies\EnemyHandler.cs" />
     <Compile Include="Classes\GameObjects\Enemies\Scissor.cs" />
+    <Compile Include="Classes\GameObjects\Projectile\Projectile.cs" />
+    <Compile Include="Classes\GameObjects\Projectile\ProjectileHandler.cs" />
     <Compile Include="Classes\GameObjects\Tower\AbstractTower.cs" />
     <Compile Include="Classes\GameObjects\Tower\TestTower.cs" />
     <Compile Include="Classes\GameObjects\Tower\TowerHandler.cs" />
@@ -150,6 +152,9 @@
     <Content Include="Assets\Textures\house_humans.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Textures\Infotafel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Textures\LambOfDoom.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -160,6 +165,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Textures\Options.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Textures\Raster.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Textures\SchafGross.png">
